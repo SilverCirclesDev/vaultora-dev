@@ -87,41 +87,50 @@ const Index = () => {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 bg-card/30">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12">
-            Trusted by <span className="text-gradient-primary">Industry Leaders</span>
-          </h2>
-          
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {[
-              {
-                quote: "SentinelLock transformed our security posture. Their expertise is unmatched.",
-                author: "Sarah Johnson",
-                role: "CTO, TechCorp"
-              },
-              {
-                quote: "Professional, thorough, and always available. Highly recommended!",
-                author: "Michael Chen",
-                role: "CEO, DataSafe Inc"
-              },
-              {
-                quote: "The best investment we made in cybersecurity. Kevin's team is exceptional.",
-                author: "Emily Rodriguez",
-                role: "Security Director, CloudNet"
-              }
-            ].map((testimonial, i) => (
-              <div key={i} className="bg-card border border-border rounded-lg p-6">
-                <p className="text-muted-foreground mb-4 italic">"{testimonial.quote}"</p>
-                <div>
-                  <p className="font-semibold">{testimonial.author}</p>
-                  <p className="text-sm text-muted-foreground">{testimonial.role}</p>
-                </div>
-              </div>
-            ))}
+      
+<section className="py-20 bg-card/30">
+  <div className="container mx-auto px-4">
+    <h2 className="text-4xl font-bold text-center mb-12">
+      Trusted by <span className="text-gradient-primary">Kenyan Industry Leaders</span>
+    </h2>
+    
+    <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+      {[
+        {
+          quote:
+            "SentinelLock helped us strengthen our data infrastructure and pass multiple compliance audits. Their professionalism and attention to detail are unmatched.",
+          author: "Franklin Kipchirchir",
+          role: "Director, RiftWormanship Limited"
+        },
+        {
+          quote:
+            "Kevin’s team provided exceptional penetration testing and vulnerability assessments that secured our fintech operations. Highly reliable and responsive experts.",
+          author: "Alice Wanjiku",
+          role: "CTO, PaySure Technologies (Nairobi)"
+        },
+        {
+          quote:
+            "We’ve seen a dramatic reduction in cybersecurity risks since engaging SentinelLock. Excellent communication, top-tier expertise, and real measurable results.",
+          author: "Brian Otieno",
+          role: "IT Manager, EastNet Solutions Kenya"
+        }
+      ].map((testimonial, i) => (
+        <div
+          key={i}
+          className="bg-card border border-border rounded-2xl p-6 shadow-md hover:shadow-lg transition-shadow duration-300"
+        >
+          <p className="text-muted-foreground mb-4 italic">
+            "{testimonial.quote}"
+          </p>
+          <div>
+            <p className="font-semibold text-foreground">{testimonial.author}</p>
+            <p className="text-sm text-muted-foreground">{testimonial.role}</p>
           </div>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
 
       {/* CTA Section */}
       <section className="py-20">
