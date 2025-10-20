@@ -87,7 +87,7 @@ const Index = () => {
       </section>
 
       {/* Testimonials Section */}
-      
+
 <section className="py-20 bg-card/30">
   <div className="container mx-auto px-4">
     <h2 className="text-4xl font-bold text-center mb-12">
@@ -98,13 +98,13 @@ const Index = () => {
       {[
         {
           quote:
-            "SentinelLock helped us strengthen our data infrastructure and pass multiple compliance audits. Their professionalism and attention to detail are unmatched.",
+            "SentinelLock helped us strengthen our data infrastructure and pass multiple compliance audits. Their professionalism and attention to detail is unmatched.",
           author: "Franklin Kipchirchir",
           role: "Director, RiftWormanship Limited"
         },
         {
           quote:
-            "Kevin’s team provided exceptional penetration testing and vulnerability assessments that secured our fintech operations. Highly reliable and responsive experts.",
+            "A big thank you to Kevin’s team provided exceptional penetration testing and vulnerability assessments that secured our fintech operations. Highly reliable and responsive experts.",
           author: "Alice Wanjiku",
           role: "CTO, PaySure Technologies (Nairobi)"
         },
