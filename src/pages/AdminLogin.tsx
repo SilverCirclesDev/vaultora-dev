@@ -26,14 +26,16 @@ const AdminLogin = () => {
     try {
       if (isSignUp) {
         await signUp(email, password, fullName);
+        // After signup, redirect to dashboard (they'll need to be made admin separately)
+        setTimeout(() => {
+          navigate("/admin/dashboard");
+        }, 1000);
       } else {
         await signIn(email, password);
-        // Check if user is admin after login
-        if (user && !isAdmin) {
-          navigate("/");
-        } else if (user && isAdmin) {
+        // Force redirect after successful login
+        setTimeout(() => {
           navigate("/admin/dashboard");
-        }
+        }, 1000);
       }
     } catch (error) {
       console.error("Authentication error:", error);
@@ -71,7 +73,7 @@ const AdminLogin = () => {
                 <Input
                   id="fullName"
                   type="text"
-                  placeholder="Kevin"
+                  placeholder="Full Name"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                   required={isSignUp}

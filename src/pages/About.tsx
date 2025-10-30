@@ -42,34 +42,33 @@ const About = () => {
             </div>
           </div>
 
-          {/* Founder Section */}
+          {/* Team Section */}
           <div className="mb-16">
             <h2 className="text-3xl font-bold text-center mb-12">
-              Meet Our <span className="text-gradient-primary">Founder</span>
+              Our <span className="text-gradient-primary">Leadership</span>
             </h2>
             <div className="bg-card border border-border rounded-lg p-8 lg:p-12 max-w-4xl mx-auto">
-              <div className="flex flex-col lg:flex-row gap-8 items-start">
-                <div className="w-32 h-32 rounded-full bg-gradient-primary flex items-center justify-center text-4xl font-bold flex-shrink-0">
-                  K
+              <div className="text-center">
+                <div className="w-32 h-32 rounded-full bg-gradient-primary flex items-center justify-center text-4xl font-bold mx-auto mb-6">
+                  SL
                 </div>
-                <div className="flex-1">
-                  <h3 className="text-2xl font-bold mb-2">Kevin</h3>
-                  <p className="text-primary mb-4">Founder & Lead Cybersecurity Expert</p>
-                  <p className="text-muted-foreground mb-4">
-                    Kevin is a certified cybersecurity professional with extensive experience in 
-                    penetration testing, network security, and threat analysis. With a passion for 
-                    protecting digital infrastructures, Kevin founded SentinelLock to deliver 
-                    enterprise-grade security solutions to businesses of all sizes.
-                  </p>
-                  <div className="space-y-2">
-                    <p className="text-sm font-semibold text-foreground">Key Certifications:</p>
-                    <ul className="list-disc list-inside text-muted-foreground space-y-1">
-                      <li>Certified Ethical Hacker (CEH)</li>
-                      <li>Offensive Security Certified Professional (OSCP)</li>
-                      <li>Certified Information Systems Security Professional (CISSP)</li>
-                      <li>Cloud Security Specialist</li>
-                    </ul>
-                  </div>
+                <h3 className="text-2xl font-bold mb-2">SentinelLock Team</h3>
+                <p className="text-primary mb-4">Certified Cybersecurity Professionals</p>
+                <p className="text-muted-foreground mb-4">
+                  Our team consists of certified cybersecurity professionals with extensive experience in 
+                  penetration testing, network security, and threat analysis. We are dedicated to 
+                  protecting digital infrastructures and delivering enterprise-grade security solutions 
+                  to businesses of all sizes across the United States.
+                </p>
+                <div className="space-y-2">
+                  <p className="text-sm font-semibold text-foreground">Team Certifications:</p>
+                  <ul className="list-disc list-inside text-muted-foreground space-y-1">
+                    <li>Certified Ethical Hacker (CEH)</li>
+                    <li>Offensive Security Certified Professional (OSCP)</li>
+                    <li>Certified Information Systems Security Professional (CISSP)</li>
+                    <li>Cloud Security Alliance (CSA) Certifications</li>
+                    <li>SANS Security Certifications</li>
+                  </ul>
                 </div>
               </div>
             </div>

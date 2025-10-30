@@ -1,0 +1,25 @@
+{
+  "name": "SentinelLock Cyber Defense",
+  "short_name": "SentinelLock",
+  "description": "Professional cybersecurity services including penetration testing, network security, and vulnerability assessments.",
+  "icons": [
+    {
+      "src": "/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#3b82f6",
+  "background_color": "#0f172a",
+  "display": "standalone",
+  "start_url": "/",
+  "scope": "/",
+  "orientation": "portrait-primary",
+  "categories": ["business", "security", "technology"],
+  "lang": "en-US"
+}

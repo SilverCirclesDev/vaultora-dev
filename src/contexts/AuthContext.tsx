@@ -71,12 +71,23 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const signIn = async (email: string, password: string) => {
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
-      if (error) throw error;
+      if (error) {
+        if (error.message.includes('Email not confirmed')) {
+          toast({
+            title: "Email Not Confirmed",
+            description: "Please check your email and click the confirmation link, or contact support if you need help.",
+            variant: "destructive",
+          });
+        } else {
+          throw error;
+        }
+        return;
+      }
 
       toast({
         title: "Success",
@@ -96,7 +107,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       const redirectUrl = `${window.location.origin}/`;
       
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
@@ -109,10 +120,17 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
       if (error) throw error;
 
-      toast({
-        title: "Success",
-        description: "Account created successfully",
-      });
+      if (data.user && !data.user.email_confirmed_at) {
+        toast({
+          title: "Account Created",
+          description: "Please check your email for a confirmation link. If email confirmation is disabled, you can log in immediately.",
+        });
+      } else {
+        toast({
+          title: "Success",
+          description: "Account created successfully",
+        });
+      }
     } catch (error: any) {
       toast({
         title: "Error",

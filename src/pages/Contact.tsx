@@ -103,8 +103,8 @@ const Contact = () => {
                     <div>
                       <p className="font-semibold mb-1">Office</p>
                       <p className="text-muted-foreground">
-                        123 Security Boulevard<br />
-                        Cyber City, CC 12345
+                        1234 Cyber Security Drive<br />
+                        Austin, TX 78701
                       </p>
                     </div>
                   </div>

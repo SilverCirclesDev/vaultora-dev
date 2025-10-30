@@ -108,9 +108,16 @@ const Services = () => {
                     <service.icon className="h-16 w-16 text-primary mb-4 group-hover:animate-glow" />
                     <h2 className="text-2xl font-bold mb-4">{service.title}</h2>
                     <p className="text-muted-foreground mb-6">{service.description}</p>
-                    <Link to="/contact">
-                      <Button className="w-full lg:w-auto">Request Service</Button>
-                    </Link>
+                    <Button 
+                      className="w-full lg:w-auto"
+                      onClick={() => {
+                        if ((window as any).LiveChatWidget) {
+                          (window as any).LiveChatWidget.call('maximize');
+                        }
+                      }}
+                    >
+                      Request Service
+                    </Button>
                   </div>
                   
                   <div className="lg:col-span-2">
@@ -136,9 +143,17 @@ const Services = () => {
               Get started with a free consultation to discuss your security needs
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/contact">
-                <Button size="lg" className="glow-primary">Get Free Consultation</Button>
-              </Link>
+              <Button 
+                size="lg" 
+                className="glow-primary"
+                onClick={() => {
+                  if ((window as any).LiveChatWidget) {
+                    (window as any).LiveChatWidget.call('maximize');
+                  }
+                }}
+              >
+                Get Free Consultation
+              </Button>
               <Link to="/pricing">
                 <Button size="lg" variant="outline" className="border-primary/50 hover:border-primary">
                   View Pricing
