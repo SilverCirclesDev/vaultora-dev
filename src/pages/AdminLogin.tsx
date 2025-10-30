@@ -1,24 +1,54 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Shield } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
 
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { toast } = useToast();
+  const [isSignUp, setIsSignUp] = useState(false);
+  const [fullName, setFullName] = useState("");
+  const { signIn, signUp, user, isAdmin, loading } = useAuth();
+  const navigate = useNavigate();
 
-  const handleLogin = (e: React.FormEvent) => {
+  useEffect(() => {
+    if (!loading && user && isAdmin) {
+      navigate("/admin/dashboard");
+    }
+  }, [user, isAdmin, loading, navigate]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Placeholder for authentication logic
-    toast({
-      title: "Authentication Required",
-      description: "Admin authentication system will be integrated with backend.",
-    });
+    try {
+      if (isSignUp) {
+        await signUp(email, password, fullName);
+      } else {
+        await signIn(email, password);
+        // Check if user is admin after login
+        if (user && !isAdmin) {
+          navigate("/");
+        } else if (user && isAdmin) {
+          navigate("/admin/dashboard");
+        }
+      }
+    } catch (error) {
+      console.error("Authentication error:", error);
+    }
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="animate-pulse">
+          <Shield className="h-16 w-16 text-primary" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
@@ -34,7 +64,21 @@ const AdminLogin = () => {
           </div>
 
           {/* Login Form */}
-          <form onSubmit={handleLogin} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {isSignUp && (
+              <div className="space-y-2">
+                <Label htmlFor="fullName">Full Name</Label>
+                <Input
+                  id="fullName"
+                  type="text"
+                  placeholder="Kevin"
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  required={isSignUp}
+                  className="bg-background"
+                />
+              </div>
+            )}
             <div className="space-y-2">
               <Label htmlFor="email">Email Address</Label>
               <Input
@@ -72,8 +116,20 @@ const AdminLogin = () => {
             </div>
 
             <Button type="submit" className="w-full glow-primary">
-              Sign In
+              {isSignUp ? "Create Account" : "Sign In"}
             </Button>
+
+            <div className="text-center">
+              <button
+                type="button"
+                onClick={() => setIsSignUp(!isSignUp)}
+                className="text-sm text-primary hover:underline"
+              >
+                {isSignUp
+                  ? "Already have an account? Sign in"
+                  : "Need an account? Sign up"}
+              </button>
+            </div>
           </form>
 
           {/* Security Notice */}
