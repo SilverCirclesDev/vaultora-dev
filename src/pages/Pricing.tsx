@@ -130,14 +130,17 @@ const Pricing = () => {
                     ))}
                   </ul>
                   
-                  <Link to="/contact">
-                    <Button 
-                      className={`w-full ${plan.popular ? 'glow-primary' : ''}`}
-                      variant={plan.popular ? 'default' : 'outline'}
-                    >
-                      Get Started
-                    </Button>
-                  </Link>
+                  <Button 
+                    onClick={() => {
+                      if ((window as any).LiveChatWidget) {
+                        (window as any).LiveChatWidget.call('maximize');
+                      }
+                    }}
+                    className={`w-full ${plan.popular ? 'glow-primary' : ''}`}
+                    variant={plan.popular ? 'default' : 'outline'}
+                  >
+                    Get Started
+                  </Button>
                 </div>
               ))}
             </div>
@@ -155,11 +158,18 @@ const Pricing = () => {
                   <div className="text-2xl font-bold text-primary mb-2">{service.price}</div>
                   <h3 className="text-lg font-semibold mb-2">{service.name}</h3>
                   <p className="text-sm text-muted-foreground mb-4">{service.description}</p>
-                  <Link to="/contact">
-                    <Button variant="outline" size="sm" className="w-full">
-                      Request Quote
-                    </Button>
-                  </Link>
+                  <Button 
+                    onClick={() => {
+                      if ((window as any).LiveChatWidget) {
+                        (window as any).LiveChatWidget.call('maximize');
+                      }
+                    }}
+                    variant="outline" 
+                    size="sm" 
+                    className="w-full"
+                  >
+                    Request Quote
+                  </Button>
                 </div>
               ))}
             </div>
