@@ -184,27 +184,39 @@ const AdminDashboard = () => {
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
-        <div className="px-6 py-4">
+        <div className="px-4 sm:px-6 py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <Shield className="h-8 w-8 text-primary" />
-              <div>
-                <h1 className="text-2xl font-bold text-gray-900">SentinelLock CMS</h1>
-                <p className="text-sm text-gray-500">Professional Admin Dashboard</p>
+            <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+              <Shield className="h-6 w-6 sm:h-8 sm:w-8 text-primary flex-shrink-0" />
+              <div className="min-w-0">
+                <h1 className="text-lg sm:text-2xl font-bold text-gray-900 truncate">SentinelLock CMS</h1>
+                <p className="text-xs sm:text-sm text-gray-500 hidden sm:block">Professional Admin Dashboard</p>
               </div>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 sm:gap-4">
               <Button
                 onClick={() => navigate("/")}
                 variant="outline"
                 size="sm"
+                className="hidden sm:flex"
               >
                 <Globe className="h-4 w-4 mr-2" />
                 View Site
               </Button>
-              <Button onClick={handleSignOut} variant="outline" size="sm">
+              <Button
+                onClick={() => navigate("/")}
+                variant="outline"
+                size="sm"
+                className="sm:hidden"
+              >
+                <Globe className="h-4 w-4" />
+              </Button>
+              <Button onClick={handleSignOut} variant="outline" size="sm" className="hidden sm:flex">
                 <LogOut className="h-4 w-4 mr-2" />
                 Sign Out
+              </Button>
+              <Button onClick={handleSignOut} variant="outline" size="sm" className="sm:hidden">
+                <LogOut className="h-4 w-4" />
               </Button>
             </div>
           </div>
@@ -212,14 +224,14 @@ const AdminDashboard = () => {
       </header>
 
       {/* Main Content */}
-      <main className="p-6">
+      <main className="p-4 sm:p-6">
         <div className="max-w-7xl mx-auto">
           {/* Welcome Section */}
-          <div className="mb-8">
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">
+          <div className="mb-6 sm:mb-8">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
               Welcome back, {user.email?.split('@')[0]}
             </h2>
-            <p className="text-gray-600">
+            <p className="text-gray-600 text-sm sm:text-base">
               Manage your cybersecurity website content and monitor performance.
             </p>
           </div>
@@ -247,14 +259,14 @@ const AdminDashboard = () => {
           </div>
 
           {/* Main Dashboard Tabs */}
-          <Tabs defaultValue="overview" className="space-y-6">
-            <TabsList className="grid w-full grid-cols-6">
-              <TabsTrigger value="overview">Overview</TabsTrigger>
-              <TabsTrigger value="content">Content</TabsTrigger>
-              <TabsTrigger value="contacts">Contacts</TabsTrigger>
-              <TabsTrigger value="services">Services</TabsTrigger>
-              <TabsTrigger value="analytics">Analytics</TabsTrigger>
-              <TabsTrigger value="settings">Settings</TabsTrigger>
+          <Tabs defaultValue="overview" className="space-y-4 sm:space-y-6">
+            <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-1 h-auto p-1">
+              <TabsTrigger value="overview" className="text-xs sm:text-sm px-2 py-2 sm:px-3 sm:py-2">Overview</TabsTrigger>
+              <TabsTrigger value="content" className="text-xs sm:text-sm px-2 py-2 sm:px-3 sm:py-2">Content</TabsTrigger>
+              <TabsTrigger value="contacts" className="text-xs sm:text-sm px-2 py-2 sm:px-3 sm:py-2">Contacts</TabsTrigger>
+              <TabsTrigger value="services" className="text-xs sm:text-sm px-2 py-2 sm:px-3 sm:py-2">Services</TabsTrigger>
+              <TabsTrigger value="analytics" className="text-xs sm:text-sm px-2 py-2 sm:px-3 sm:py-2">Analytics</TabsTrigger>
+              <TabsTrigger value="settings" className="text-xs sm:text-sm px-2 py-2 sm:px-3 sm:py-2">Settings</TabsTrigger>
             </TabsList>
 
             {/* Overview Tab */}
