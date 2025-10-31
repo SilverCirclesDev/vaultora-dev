@@ -33,7 +33,7 @@ const LocalSubmissions = () => {
 
   const retrySubmissions = async () => {
     if (submissions.length === 0) return;
-    
+
     setIsRetrying(true);
     let successCount = 0;
     let failedSubmissions: LocalSubmission[] = [];
@@ -97,7 +97,7 @@ const LocalSubmissions = () => {
         <p className="text-sm text-yellow-700 mb-4">
           These contact form submissions were stored locally due to connection issues.
         </p>
-        
+
         <div className="space-y-2 mb-4 max-h-40 overflow-y-auto">
           {submissions.map((submission, index) => (
             <div key={index} className="text-xs bg-white p-2 rounded border">
@@ -111,15 +111,15 @@ const LocalSubmissions = () => {
         </div>
 
         <div className="flex gap-2">
-          <Button 
-            onClick={retrySubmissions} 
+          <Button
+            onClick={retrySubmissions}
             disabled={isRetrying}
             size="sm"
           >
             {isRetrying ? "Retrying..." : "Retry Sending"}
           </Button>
-          <Button 
-            onClick={clearSubmissions} 
+          <Button
+            onClick={clearSubmissions}
             variant="outline"
             size="sm"
           >
