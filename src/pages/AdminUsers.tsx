@@ -282,17 +282,17 @@ const AdminUsers = () => {
             </div>
 
             {users.length === 0 ? (
-              <Card>
+              <Card className="bg-white border-gray-200">
                 <CardContent className="text-center py-12">
-                  <Users className="h-16 w-16 mx-auto mb-4 text-gray-300" />
-                  <p className="text-gray-500 mb-2">No users found</p>
+                  <Users className="h-16 w-16 mx-auto mb-4 text-gray-400" />
+                  <p className="text-gray-700 mb-2 font-medium">No users found</p>
                   <p className="text-sm text-gray-400">Users will appear here when they sign up</p>
                 </CardContent>
               </Card>
             ) : (
               <div className="grid gap-6">
                 {users.map((userData) => (
-                  <Card key={userData.id} className="hover:shadow-lg transition-shadow">
+                  <Card key={userData.id} className="bg-white border-gray-200 hover:shadow-lg transition-shadow">
                     <CardContent className="p-6">
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
@@ -379,13 +379,13 @@ const AdminUsers = () => {
 
           {/* User Statistics */}
           <div className="mt-12 grid md:grid-cols-4 gap-6">
-            <Card>
+            <Card className="bg-white border-gray-200">
               <CardContent className="p-6 text-center">
-                <div className="text-2xl font-bold text-blue-600">{users.length}</div>
+                <div className="text-2xl font-bold text-primary">{users.length}</div>
                 <div className="text-sm text-gray-600">Total Users</div>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="bg-white border-gray-200">
               <CardContent className="p-6 text-center">
                 <div className="text-2xl font-bold text-red-600">
                   {users.filter(u => u.roles.includes('admin')).length}
@@ -393,17 +393,17 @@ const AdminUsers = () => {
                 <div className="text-sm text-gray-600">Admins</div>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="bg-white border-gray-200">
               <CardContent className="p-6 text-center">
-                <div className="text-2xl font-bold text-green-600">
+                <div className="text-2xl font-bold text-emerald-600">
                   {users.filter(u => u.email_confirmed_at).length}
                 </div>
                 <div className="text-sm text-gray-600">Confirmed</div>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="bg-white border-gray-200">
               <CardContent className="p-6 text-center">
-                <div className="text-2xl font-bold text-yellow-600">
+                <div className="text-2xl font-bold text-amber-600">
                   {users.filter(u => !u.email_confirmed_at).length}
                 </div>
                 <div className="text-sm text-gray-600">Pending</div>

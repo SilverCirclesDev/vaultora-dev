@@ -227,7 +227,7 @@ const AdminDashboard = () => {
           {/* Stats Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             {dashboardStats.map((stat, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow">
+              <Card key={index} className="bg-white border-gray-200 hover:shadow-lg transition-shadow">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
@@ -261,9 +261,9 @@ const AdminDashboard = () => {
             <TabsContent value="overview" className="space-y-6">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Quick Actions */}
-                <Card>
+                <Card className="bg-white border-gray-200">
                   <CardHeader>
-                    <CardTitle>Quick Actions</CardTitle>
+                    <CardTitle className="text-gray-900">Quick Actions</CardTitle>
                     <CardDescription>Common tasks and shortcuts</CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -309,16 +309,16 @@ const AdminDashboard = () => {
                 </Card>
 
                 {/* Recent Activity */}
-                <Card>
+                <Card className="bg-white border-gray-200">
                   <CardHeader>
-                    <CardTitle>Recent Activity</CardTitle>
+                    <CardTitle className="text-gray-900">Recent Activity</CardTitle>
                     <CardDescription>Latest updates and changes</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
                       {recentActivity.length > 0 ? (
                         recentActivity.slice(0, 5).map((activity, index) => (
-                          <div key={index} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                          <div key={index} className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg border border-slate-200">
                             <div className={`p-2 rounded-full ${
                               activity.type === 'blog' ? 'bg-blue-100' : 'bg-green-100'
                             }`}>
@@ -358,9 +358,9 @@ const AdminDashboard = () => {
 
             {/* Content Management Tab */}
             <TabsContent value="content">
-              <Card>
+              <Card className="bg-white border-gray-200">
                 <CardHeader>
-                  <CardTitle>Content Management</CardTitle>
+                  <CardTitle className="text-gray-900">Content Management</CardTitle>
                   <CardDescription>Manage your website content</CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -405,9 +405,9 @@ const AdminDashboard = () => {
 
             {/* Contacts Tab */}
             <TabsContent value="contacts">
-              <Card>
+              <Card className="bg-white border-gray-200">
                 <CardHeader>
-                  <CardTitle>Contact Management</CardTitle>
+                  <CardTitle className="text-gray-900">Contact Management</CardTitle>
                   <CardDescription>View and manage customer inquiries</CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -427,9 +427,9 @@ const AdminDashboard = () => {
 
             {/* Services Tab */}
             <TabsContent value="services">
-              <Card>
+              <Card className="bg-white border-gray-200">
                 <CardHeader>
-                  <CardTitle>Services Management</CardTitle>
+                  <CardTitle className="text-gray-900">Services Management</CardTitle>
                   <CardDescription>Manage your cybersecurity services</CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -449,9 +449,9 @@ const AdminDashboard = () => {
 
             {/* Analytics Tab */}
             <TabsContent value="analytics">
-              <Card>
+              <Card className="bg-white border-gray-200">
                 <CardHeader>
-                  <CardTitle>Analytics & Reports</CardTitle>
+                  <CardTitle className="text-gray-900">Analytics & Reports</CardTitle>
                   <CardDescription>Track your website performance and user engagement</CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -487,9 +487,9 @@ const AdminDashboard = () => {
 
             {/* Settings Tab */}
             <TabsContent value="settings">
-              <Card>
+              <Card className="bg-white border-gray-200">
                 <CardHeader>
-                  <CardTitle>System Settings</CardTitle>
+                  <CardTitle className="text-gray-900">System Settings</CardTitle>
                   <CardDescription>Configure your CMS settings and manage users</CardDescription>
                 </CardHeader>
                 <CardContent>

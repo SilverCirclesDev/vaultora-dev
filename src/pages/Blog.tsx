@@ -161,7 +161,7 @@ const Blog = () => {
                       </div>
                     </div>
                     <Link 
-                      to="#" 
+                      to={`/blog/${articles[0].id}`}
                       className="inline-flex items-center gap-2 text-primary hover:gap-3 transition-all font-semibold"
                     >
                       Read Full Article <ArrowRight className="h-4 w-4" />
@@ -222,7 +222,7 @@ const Blog = () => {
                         </div>
                       </div>
                       <Link 
-                        to="#" 
+                        to={`/blog/${article.id}`}
                         className="inline-flex items-center gap-2 text-primary hover:gap-3 transition-all text-sm font-semibold"
                       >
                         Read More <ArrowRight className="h-3 w-3" />

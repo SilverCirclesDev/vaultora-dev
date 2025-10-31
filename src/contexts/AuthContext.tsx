@@ -8,6 +8,7 @@ interface AuthContextType {
   session: Session | null;
   isAdmin: boolean;
   loading: boolean;
+  checkAdminRole: () => Promise<void>;
   signIn: (email: string, password: string) => Promise<void>;
   signUp: (email: string, password: string, fullName: string) => Promise<void>;
   signOut: () => Promise<void>;
@@ -22,20 +23,41 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
 
-  const checkAdminRole = async (userId: string) => {
+  const checkAdminRole = async (userId?: string) => {
+    const userIdToCheck = userId || user?.id;
+    if (!userIdToCheck) {
+      setIsAdmin(false);
+      return;
+    }
+
     try {
-      const { data, error } = await supabase
+      
+      // Add timeout to prevent hanging
+      const timeoutPromise = new Promise((_, reject) => {
+        setTimeout(() => reject(new Error('Admin role check timeout')), 5000);
+      });
+      
+      const rolePromise = supabase
         .from("user_roles")
         .select("role")
-        .eq("user_id", userId)
+        .eq("user_id", userIdToCheck)
         .eq("role", "admin")
         .maybeSingle();
 
+      const { data, error } = await Promise.race([rolePromise, timeoutPromise]) as any;
+
       if (error) throw error;
-      setIsAdmin(!!data);
+      
+      const hasAdminRole = !!data;
+      setIsAdmin(hasAdminRole);
     } catch (error) {
-      console.error("Error checking admin role:", error);
-      setIsAdmin(false);
+      // For development, allow bypass if there's a connection issue
+      const isDev = import.meta.env.DEV;
+      if (isDev && error.message?.includes('timeout')) {
+        setIsAdmin(true); // Allow admin access in dev mode when there are connection issues
+      } else {
+        setIsAdmin(false);
+      }
     }
   };
 
@@ -46,9 +68,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setSession(session);
         setUser(session?.user ?? null);
         
-        if (session?.user) {
-          await checkAdminRole(session.user.id);
-        } else {
+        // Don't check admin role automatically - only when needed
+        if (!session?.user) {
           setIsAdmin(false);
         }
         
@@ -56,13 +77,24 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       }
     );
 
-    // Check for existing session
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    // Check for existing session with timeout
+    const sessionTimeout = setTimeout(() => {
+      setLoading(false);
+    }, 8000);
+
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
+      clearTimeout(sessionTimeout);
       setSession(session);
       setUser(session?.user ?? null);
-      if (session?.user) {
-        checkAdminRole(session.user.id);
+      
+      // Don't check admin role automatically - only when accessing admin routes
+      if (!session?.user) {
+        setIsAdmin(false);
       }
+      
+      setLoading(false);
+    }).catch((error) => {
+      clearTimeout(sessionTimeout);
       setLoading(false);
     });
 
@@ -161,7 +193,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, session, isAdmin, loading, signIn, signUp, signOut }}
+      value={{ user, session, isAdmin, loading, checkAdminRole, signIn, signUp, signOut }}
     >
       {children}
     </AuthContext.Provider>

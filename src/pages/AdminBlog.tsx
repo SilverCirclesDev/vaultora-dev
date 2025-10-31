@@ -166,10 +166,10 @@ const AdminBlog = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="border-b border-border bg-card">
-        <div className="container mx-auto px-4 py-4">
+      <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div className="px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <Button
@@ -182,8 +182,8 @@ const AdminBlog = () => {
               </Button>
               <Shield className="h-8 w-8 text-primary" />
               <div>
-                <h1 className="text-2xl font-bold">Blog Management</h1>
-                <p className="text-sm text-muted-foreground">Manage your blog posts</p>
+                <h1 className="text-2xl font-bold text-gray-900">Blog Management</h1>
+                <p className="text-sm text-gray-500">Manage your blog posts</p>
               </div>
             </div>
             <Button onClick={() => setIsCreating(true)} className="gap-2">
@@ -195,11 +195,12 @@ const AdminBlog = () => {
       </header>
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 py-8">
+      <main className="p-6">
+        <div className="max-w-7xl mx-auto">
         {isCreating ? (
           <div className="max-w-4xl mx-auto">
-            <div className="bg-card border border-border rounded-lg p-8">
-              <h2 className="text-2xl font-bold mb-6">
+            <div className="bg-white border border-gray-200 rounded-lg p-8 shadow-sm">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">
                 {editingPost ? 'Edit Post' : 'Create New Post'}
               </h2>
               
@@ -317,11 +318,11 @@ const AdminBlog = () => {
           </div>
         ) : (
           <div>
-            <h2 className="text-2xl font-bold mb-6">All Posts ({posts.length})</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">All Posts ({posts.length})</h2>
             
             {posts.length === 0 ? (
               <div className="text-center py-12">
-                <p className="text-muted-foreground mb-4">No blog posts yet</p>
+                <p className="text-gray-500 mb-4">No blog posts yet</p>
                 <Button onClick={() => setIsCreating(true)}>
                   Create your first post
                 </Button>
@@ -329,21 +330,21 @@ const AdminBlog = () => {
             ) : (
               <div className="space-y-4">
                 {posts.map((post) => (
-                  <div key={post.id} className="bg-card border border-border rounded-lg p-6">
+                  <div key={post.id} className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-2">
-                          <h3 className="text-xl font-semibold">{post.title}</h3>
+                          <h3 className="text-xl font-semibold text-gray-900">{post.title}</h3>
                           <span className={`px-2 py-1 text-xs rounded-full ${
                             post.published 
-                              ? 'bg-green-100 text-green-800' 
-                              : 'bg-yellow-100 text-yellow-800'
+                              ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' 
+                              : 'bg-amber-100 text-amber-800 border border-amber-300'
                           }`}>
                             {post.published ? 'Published' : 'Draft'}
                           </span>
                         </div>
-                        <p className="text-muted-foreground text-sm mb-2">{post.excerpt}</p>
-                        <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                        <p className="text-gray-600 text-sm mb-2">{post.excerpt}</p>
+                        <div className="flex items-center gap-4 text-xs text-gray-500">
                           <span>Created: {new Date(post.created_at).toLocaleDateString()}</span>
                           {post.published_at && (
                             <span>Published: {new Date(post.published_at).toLocaleDateString()}</span>
@@ -373,6 +374,7 @@ const AdminBlog = () => {
             )}
           </div>
         )}
+        </div>
       </main>
     </div>
   );

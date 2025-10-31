@@ -26,7 +26,8 @@ import {
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
+import LocalSubmissions from "@/components/LocalSubmissions";
+import { submitContactForm } from "@/utils/contactSubmission";
 
 const Index = () => {
   const { toast } = useToast();
@@ -38,6 +39,7 @@ const Index = () => {
     service: "",
     message: ""
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // SEO: Update page title and meta description dynamically
   useEffect(() => {
@@ -62,20 +64,11 @@ const Index = () => {
       return;
     }
 
-    try {
-      const { error } = await supabase
-        .from('contact_submissions')
-        .insert([{
-          name: formData.name,
-          email: formData.email,
-          company: formData.company || null,
-          phone: formData.phone || null,
-          service: formData.service || null,
-          message: formData.message,
-          status: 'new'
-        }]);
+    setIsSubmitting(true);
 
-      if (error) throw error;
+    try {
+      // Use the new utility function
+      const result = await submitContactForm(formData);
 
       toast({
         title: "Message Sent!",
@@ -91,11 +84,34 @@ const Index = () => {
         message: ""
       });
     } catch (error: any) {
-      toast({
-        title: "Error",
-        description: "Failed to send message. Please try again.",
-        variant: "destructive"
-      });
+      console.error('Contact form submission error:', error);
+      
+      // If it's a timeout error, provide specific guidance
+      if (error.message.includes('timeout')) {
+        toast({
+          title: "Connection Timeout",
+          description: "Please check your internet connection or try again later. Your message has been logged locally.",
+          variant: "destructive"
+        });
+        
+        // Store locally as fallback
+        const localSubmissions = JSON.parse(localStorage.getItem('pendingContactSubmissions') || '[]');
+        localSubmissions.push({
+          ...formData,
+          timestamp: new Date().toISOString(),
+          status: 'pending'
+        });
+        localStorage.setItem('pendingContactSubmissions', JSON.stringify(localSubmissions));
+        
+      } else {
+        toast({
+          title: "Error",
+          description: error.message || "Failed to send message. Please try again.",
+          variant: "destructive"
+        });
+      }
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -497,6 +513,7 @@ const Index = () => {
             <div className="grid lg:grid-cols-3 gap-12">
               {/* Contact Info */}
               <div className="space-y-8">
+                <LocalSubmissions />
                 <div>
                   <h3 className="text-xl font-bold mb-6">Contact Information</h3>
                   
@@ -639,8 +656,8 @@ const Index = () => {
                     </div>
 
                     <div className="flex flex-col sm:flex-row gap-4">
-                      <Button type="submit" size="lg" className="glow-primary flex-1">
-                        Send Message
+                      <Button type="submit" size="lg" className="glow-primary flex-1" disabled={isSubmitting}>
+                        {isSubmitting ? "Sending..." : "Send Message"}
                         <ArrowRight className="ml-2 h-5 w-5" />
                       </Button>
                       <Button 

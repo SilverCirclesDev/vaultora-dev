@@ -11,14 +11,20 @@ const AdminLogin = () => {
   const [password, setPassword] = useState("");
   const [isSignUp, setIsSignUp] = useState(false);
   const [fullName, setFullName] = useState("");
-  const { signIn, signUp, user, isAdmin, loading } = useAuth();
+  const { signIn, signUp, user, isAdmin, loading, checkAdminRole } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
+    // If user exists but we haven't checked admin role yet, check it now
+    if (!loading && user && !isAdmin) {
+      checkAdminRole();
+    }
+    
+    // If user is admin, redirect to dashboard
     if (!loading && user && isAdmin) {
       navigate("/admin/dashboard");
     }
-  }, [user, isAdmin, loading, navigate]);
+  }, [user, isAdmin, loading, navigate, checkAdminRole]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,9 +50,12 @@ const AdminLogin = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="animate-pulse">
-          <Shield className="h-16 w-16 text-primary" />
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center">
+          <div className="animate-pulse mb-4">
+            <Shield className="h-16 w-16 text-primary mx-auto" />
+          </div>
+          <p className="text-gray-600">Loading admin portal...</p>
         </div>
       </div>
     );
@@ -121,16 +130,27 @@ const AdminLogin = () => {
               {isSignUp ? "Create Account" : "Sign In"}
             </Button>
 
-            <div className="text-center">
+            <div className="text-center space-y-2">
               <button
                 type="button"
                 onClick={() => setIsSignUp(!isSignUp)}
-                className="text-sm text-primary hover:underline"
+                className="text-sm text-primary hover:underline block w-full"
               >
                 {isSignUp
                   ? "Already have an account? Sign in"
                   : "Need an account? Sign up"}
               </button>
+              
+              {/* Development bypass */}
+              {import.meta.env.DEV && (
+                <button
+                  type="button"
+                  onClick={() => navigate("/admin/dashboard")}
+                  className="text-xs text-orange-600 hover:underline block w-full"
+                >
+                  🚧 Dev Mode: Skip to Dashboard
+                </button>
+              )}
             </div>
           </form>
 

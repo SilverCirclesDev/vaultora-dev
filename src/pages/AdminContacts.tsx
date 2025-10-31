@@ -113,11 +113,11 @@ const AdminContacts = () => {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'new': return 'bg-blue-50 text-blue-700 border border-blue-200';
-      case 'in_progress': return 'bg-yellow-50 text-yellow-700 border border-yellow-200';
-      case 'completed': return 'bg-green-50 text-green-700 border border-green-200';
-      case 'archived': return 'bg-gray-50 text-gray-700 border border-gray-200';
-      default: return 'bg-gray-50 text-gray-700 border border-gray-200';
+      case 'new': return 'bg-blue-100 text-blue-800 border border-blue-300';
+      case 'in_progress': return 'bg-amber-100 text-amber-800 border border-amber-300';
+      case 'completed': return 'bg-emerald-100 text-emerald-800 border border-emerald-300';
+      case 'archived': return 'bg-slate-100 text-slate-700 border border-slate-300';
+      default: return 'bg-slate-100 text-slate-700 border border-slate-300';
     }
   };
 
@@ -182,7 +182,7 @@ const AdminContacts = () => {
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-3 gap-6">
             {/* Contacts List */}
-            <div className="lg:col-span-2 space-y-4">
+            <div className="lg:col-span-2 space-y-4 min-h-0">
               <div className="flex items-center justify-between">
                 <h2 className="text-xl font-bold text-gray-900">
                   Contact Submissions ({filteredContacts.length})
@@ -190,11 +190,11 @@ const AdminContacts = () => {
               </div>
 
               {filteredContacts.length === 0 ? (
-                <Card>
+                <Card className="bg-white border-gray-200">
                   <CardContent className="text-center py-12">
-                    <MessageSquare className="h-16 w-16 mx-auto mb-4 text-gray-300" />
-                    <p className="text-gray-500 mb-2">No contact submissions found</p>
-                    <p className="text-sm text-gray-400">
+                    <MessageSquare className="h-16 w-16 mx-auto mb-4 text-gray-400" />
+                    <p className="text-gray-700 mb-2 font-medium">No contact submissions found</p>
+                    <p className="text-sm text-gray-500">
                       {statusFilter !== 'all' ? `No ${statusFilter} submissions` : 'Submissions will appear here when customers contact you'}
                     </p>
                   </CardContent>
@@ -204,10 +204,10 @@ const AdminContacts = () => {
                   {filteredContacts.map((contact) => (
                     <Card 
                       key={contact.id} 
-                      className={`cursor-pointer transition-all duration-200 ${
+                      className={`cursor-pointer transition-all duration-200 bg-white ${
                         selectedContact?.id === contact.id 
-                          ? 'ring-2 ring-primary bg-primary/5 border-primary' 
-                          : 'hover:shadow-md hover:border-primary/30'
+                          ? 'ring-2 ring-primary border-primary shadow-lg' 
+                          : 'hover:shadow-md hover:border-primary/30 border-gray-200'
                       }`}
                       onClick={() => setSelectedContact(contact)}
                     >
@@ -222,23 +222,23 @@ const AdminContacts = () => {
                             </div>
                             <div className="space-y-2 mb-3">
                               <div className="flex items-center gap-2">
-                                <Mail className="h-4 w-4 text-blue-500" />
+                                <Mail className="h-4 w-4 text-primary" />
                                 <span className="text-gray-900 font-medium">{contact.email}</span>
                               </div>
                               {contact.company && (
                                 <div className="flex items-center gap-2">
-                                  <Building className="h-4 w-4 text-green-500" />
+                                  <Building className="h-4 w-4 text-emerald-600" />
                                   <span className="text-gray-900 font-medium">{contact.company}</span>
                                 </div>
                               )}
                               {contact.service && (
                                 <div className="flex items-center gap-2">
-                                  <MessageSquare className="h-4 w-4 text-purple-500" />
-                                  <span className="text-gray-700">{contact.service}</span>
+                                  <MessageSquare className="h-4 w-4 text-slate-600" />
+                                  <span className="text-gray-800 font-medium">{contact.service}</span>
                                 </div>
                               )}
                             </div>
-                            <p className="text-sm text-gray-700 line-clamp-2 mb-3 bg-gray-50 p-3 rounded-md">
+                            <p className="text-sm text-gray-800 line-clamp-2 mb-3 bg-slate-50 p-3 rounded-md border border-slate-200">
                               "{contact.message}"
                             </p>
                             <div className="flex items-center gap-2 text-xs text-gray-500">
@@ -266,64 +266,65 @@ const AdminContacts = () => {
             </div>
 
             {/* Contact Details */}
-            <div className="lg:col-span-1">
+            <div className="lg:col-span-1 lg:max-h-screen lg:overflow-hidden">
               {selectedContact ? (
-                <Card className="sticky top-24">
-                  <CardHeader>
-                    <CardTitle className="flex items-center justify-between">
+                <Card className="sticky top-24 bg-white border-gray-200 shadow-sm">
+                  <CardHeader className="border-b border-gray-100 pb-3">
+                    <CardTitle className="flex items-center justify-between text-gray-900 text-lg">
                       Contact Details
                       <Button
                         size="sm"
                         variant="outline"
                         onClick={() => deleteContact(selectedContact.id)}
+                        className="text-red-600 hover:text-red-700 hover:bg-red-50"
                       >
                         <Trash2 className="h-4 w-4" />
                       </Button>
                     </CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-4">
+                  <CardContent className="space-y-3 p-4">
                     <div>
-                      <label className="text-sm font-medium text-gray-600">Name</label>
-                      <p className="text-gray-900">{selectedContact.name}</p>
+                      <label className="text-xs font-medium text-gray-600 uppercase tracking-wide">Name</label>
+                      <p className="text-gray-900 text-sm mt-1">{selectedContact.name}</p>
                     </div>
                     
                     <div>
-                      <label className="text-sm font-medium text-gray-600">Email</label>
-                      <p className="text-gray-900">{selectedContact.email}</p>
+                      <label className="text-xs font-medium text-gray-600 uppercase tracking-wide">Email</label>
+                      <p className="text-gray-900 text-sm mt-1">{selectedContact.email}</p>
                     </div>
 
                     {selectedContact.company && (
                       <div>
-                        <label className="text-sm font-medium text-gray-600">Company</label>
-                        <p className="text-gray-900">{selectedContact.company}</p>
+                        <label className="text-xs font-medium text-gray-600 uppercase tracking-wide">Company</label>
+                        <p className="text-gray-900 text-sm mt-1">{selectedContact.company}</p>
                       </div>
                     )}
 
                     {selectedContact.phone && (
                       <div>
-                        <label className="text-sm font-medium text-gray-600">Phone</label>
-                        <p className="text-gray-900">{selectedContact.phone}</p>
+                        <label className="text-xs font-medium text-gray-600 uppercase tracking-wide">Phone</label>
+                        <p className="text-gray-900 text-sm mt-1">{selectedContact.phone}</p>
                       </div>
                     )}
 
                     {selectedContact.service && (
                       <div>
-                        <label className="text-sm font-medium text-gray-600">Service Interest</label>
-                        <p className="text-gray-900">{selectedContact.service}</p>
+                        <label className="text-xs font-medium text-gray-600 uppercase tracking-wide">Service</label>
+                        <p className="text-gray-900 text-sm mt-1">{selectedContact.service}</p>
                       </div>
                     )}
 
                     <div>
-                      <label className="text-sm font-medium text-gray-600">Message</label>
-                      <p className="text-gray-900 whitespace-pre-wrap">{selectedContact.message}</p>
+                      <label className="text-xs font-medium text-gray-600 uppercase tracking-wide">Message</label>
+                      <p className="text-gray-900 text-sm mt-1 whitespace-pre-wrap max-h-24 overflow-y-auto">{selectedContact.message}</p>
                     </div>
 
                     <div>
-                      <label className="text-sm font-medium text-gray-600">Status</label>
+                      <label className="text-xs font-medium text-gray-600 uppercase tracking-wide">Status</label>
                       <select
                         value={selectedContact.status}
                         onChange={(e) => updateStatus(selectedContact.id, e.target.value)}
-                        className="w-full mt-1 px-3 py-2 border border-gray-300 rounded-md text-sm"
+                        className="w-full mt-1 px-2 py-1.5 border border-gray-300 rounded-md text-sm"
                       >
                         <option value="new">New</option>
                         <option value="in_progress">In Progress</option>
@@ -333,22 +334,24 @@ const AdminContacts = () => {
                     </div>
 
                     <div>
-                      <label className="text-sm font-medium text-gray-600">Submitted</label>
-                      <p className="text-gray-900 text-sm">
-                        {new Date(selectedContact.created_at).toLocaleDateString()} at {new Date(selectedContact.created_at).toLocaleTimeString()}
+                      <label className="text-xs font-medium text-gray-600 uppercase tracking-wide">Submitted</label>
+                      <p className="text-gray-900 text-xs mt-1">
+                        {new Date(selectedContact.created_at).toLocaleDateString()}
                       </p>
                     </div>
 
-                    <div className="pt-4 space-y-2">
+                    <div className="pt-2 space-y-2">
                       <Button
+                        size="sm"
                         className="w-full"
                         onClick={() => window.open(`mailto:${selectedContact.email}?subject=Re: Your inquiry&body=Hi ${selectedContact.name},%0D%0A%0D%0AThank you for contacting SentinelLock Cyber Defense.%0D%0A%0D%0A`)}
                       >
                         <Mail className="h-4 w-4 mr-2" />
-                        Reply via Email
+                        Reply
                       </Button>
                       {selectedContact.phone && (
                         <Button
+                          size="sm"
                           variant="outline"
                           className="w-full"
                           onClick={() => window.open(`tel:${selectedContact.phone}`)}
@@ -361,10 +364,10 @@ const AdminContacts = () => {
                   </CardContent>
                 </Card>
               ) : (
-                <Card>
+                <Card className="bg-white border-gray-200">
                   <CardContent className="text-center py-12">
-                    <MessageSquare className="h-16 w-16 mx-auto mb-4 text-gray-300" />
-                    <p className="text-gray-500">Select a contact to view details</p>
+                    <MessageSquare className="h-16 w-16 mx-auto mb-4 text-gray-400" />
+                    <p className="text-gray-700 font-medium">Select a contact to view details</p>
                   </CardContent>
                 </Card>
               )}
