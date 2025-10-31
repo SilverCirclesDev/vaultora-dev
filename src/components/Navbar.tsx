@@ -50,7 +50,7 @@ export const Navbar = () => {
             className="flex items-center gap-2 group"
           >
             <Shield className="h-8 w-8 text-primary animate-glow" />
-            <span className="text-xl font-bold text-gradient-primary">SentinelLock</span>
+            <span className="text-xl font-bold text-gradient-primary">Vaultora</span>
           </button>
           
           {/* Desktop Navigation */}

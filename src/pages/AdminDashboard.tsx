@@ -189,7 +189,7 @@ const AdminDashboard = () => {
             <div className="flex items-center gap-2 sm:gap-3 min-w-0">
               <Shield className="h-6 w-6 sm:h-8 sm:w-8 text-primary flex-shrink-0" />
               <div className="min-w-0">
-                <h1 className="text-lg sm:text-2xl font-bold text-gray-900 truncate">SentinelLock CMS</h1>
+                <h1 className="text-lg sm:text-2xl font-bold text-gray-900 truncate">Vaultora CMS</h1>
                 <p className="text-xs sm:text-sm text-gray-500 hidden sm:block">Professional Admin Dashboard</p>
               </div>
             </div>

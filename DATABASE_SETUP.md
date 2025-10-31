@@ -1,6 +1,6 @@
-# SentinelLock Database Setup
+# Vaultora Database Setup
 
-This guide will help you set up the complete database for the SentinelLock cybersecurity website.
+This guide will help you set up the complete database for the Vaultora cybersecurity website.
 
 ## Quick Setup (Recommended)
 
@@ -116,4 +116,4 @@ For production deployment:
 3. ✅ Admin account created
 4. ✅ Deploy to Netlify/Vercel
 
-Your SentinelLock website is now ready for production! 🚀
+Your Vaultora website is now ready for production! 🚀

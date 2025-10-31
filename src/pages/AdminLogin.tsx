@@ -71,7 +71,7 @@ const AdminLogin = () => {
               <Shield className="h-8 w-8 text-primary" />
             </div>
             <h1 className="text-3xl font-bold mb-2">Admin Portal</h1>
-            <p className="text-muted-foreground">SentinelLock Cyber Defense</p>
+            <p className="text-muted-foreground">Vaultora Cyber Defense</p>
           </div>
 
           {/* Login Form */}

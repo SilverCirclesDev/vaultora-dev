@@ -67,7 +67,7 @@ const BlogPost = () => {
           <h2>Building Effective Defenses</h2>
           <p>Understanding these threats is the first step in building effective defenses. Organizations should implement a comprehensive security strategy that includes regular security assessments, employee training, incident response planning, and continuous monitoring.</p>
           
-          <p>At SentinelLock, we help organizations identify and mitigate these threats through comprehensive penetration testing, vulnerability assessments, and security consulting services. Contact us today to learn how we can help protect your organization.</p>`,
+          <p>At Vaultora, we help organizations identify and mitigate these threats through comprehensive penetration testing, vulnerability assessments, and security consulting services. Contact us today to learn how we can help protect your organization.</p>`,
           published_at: "2025-03-15T00:00:00Z",
           tags: ["Threat Intelligence", "Cybersecurity", "Risk Management"],
           featured_image_url: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1200&q=80"
@@ -104,7 +104,7 @@ const BlogPost = () => {
           <h2>Benefits of Zero Trust</h2>
           <p>Organizations that successfully implement Zero Trust Architecture typically see improved security posture, better compliance, reduced risk of data breaches, and enhanced visibility into their network activities.</p>
           
-          <p>Ready to implement Zero Trust in your organization? Contact SentinelLock for expert guidance and support throughout your Zero Trust journey.</p>`,
+          <p>Ready to implement Zero Trust in your organization? Contact Vaultora for expert guidance and support throughout your Zero Trust journey.</p>`,
           published_at: "2025-03-10T00:00:00Z",
           tags: ["Zero Trust", "Network Security", "Best Practices"],
           featured_image_url: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=1200&q=80"
@@ -154,7 +154,7 @@ const BlogPost = () => {
           <h3>Choosing the Right Penetration Testing Provider</h3>
           <p>When selecting a penetration testing provider, consider their certifications, experience, methodology, and ability to provide actionable recommendations. Look for providers with certified ethical hackers (CEH), OSCP, or similar credentials.</p>
           
-          <p>At SentinelLock, our team of certified penetration testers uses industry-standard methodologies and cutting-edge tools to provide comprehensive security assessments. Contact us to learn more about our penetration testing services.</p>`,
+          <p>At Vaultora, our team of certified penetration testers uses industry-standard methodologies and cutting-edge tools to provide comprehensive security assessments. Contact us to learn more about our penetration testing services.</p>`,
           published_at: "2025-03-05T00:00:00Z",
           tags: ["Penetration Testing", "Ethical Hacking", "Security Assessment"],
           featured_image_url: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=1200&q=80"

@@ -43,7 +43,7 @@ const Index = () => {
 
   // SEO: Update page title and meta description dynamically
   useEffect(() => {
-    document.title = "SentinelLock Cyber Defense | Professional Cybersecurity Services | Penetration Testing & Security Audits";
+    document.title = "Vaultora Cyber Defense | Professional Cybersecurity Services | Penetration Testing & Security Audits";
     
     // Update meta description
     const metaDescription = document.querySelector('meta[name="description"]');
@@ -341,7 +341,7 @@ const Index = () => {
           <div className="grid lg:grid-cols-2 gap-16 items-center max-w-6xl mx-auto">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                Why Choose <span className="text-gradient-primary">SentinelLock?</span>
+                Why Choose <span className="text-gradient-primary">Vaultora?</span>
               </h2>
               <p className="text-lg text-muted-foreground mb-8">
                 We are committed to protecting your digital assets through comprehensive security solutions. 
@@ -411,9 +411,9 @@ const Index = () => {
               <div className="relative bg-gradient-to-br from-primary/10 to-secondary/10 rounded-2xl p-8 border border-primary/20">
                 <div className="text-center mb-8">
                   <div className="w-24 h-24 rounded-full bg-gradient-primary flex items-center justify-center text-3xl font-bold mx-auto mb-4">
-                    SL
+                    V
                   </div>
-                  <h3 className="text-xl font-bold mb-2">SentinelLock Team</h3>
+                  <h3 className="text-xl font-bold mb-2">Vaultora Team</h3>
                   <p className="text-primary text-sm">Certified Cybersecurity Professionals</p>
                 </div>
                 
@@ -452,7 +452,7 @@ const Index = () => {
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {[
               {
-                quote: "SentinelLock helped us strengthen our data infrastructure and pass multiple compliance audits. Their professionalism and attention to detail is unmatched.",
+                quote: "Vaultora helped us strengthen our data infrastructure and pass multiple compliance audits. Their professionalism and attention to detail is unmatched.",
                 author: "Michael Rodriguez",
                 role: "Director, TechSecure Solutions",
                 rating: 5
@@ -464,7 +464,7 @@ const Index = () => {
                 rating: 5
               },
               {
-                quote: "We've seen a dramatic reduction in cybersecurity risks since engaging SentinelLock. Excellent communication, top-tier expertise, and real measurable results.",
+                quote: "We've seen a dramatic reduction in cybersecurity risks since engaging Vaultora. Excellent communication, top-tier expertise, and real measurable results.",
                 author: "David Chen",
                 role: "IT Manager, DataShield Corp",
                 rating: 5
@@ -524,8 +524,8 @@ const Index = () => {
                       </div>
                       <div>
                         <p className="font-semibold mb-1">Email</p>
-                        <a href="mailto:contact@sentinellock.com" className="text-muted-foreground hover:text-primary transition-colors">
-                          contact@sentinellock.com
+                        <a href="mailto:contact@vaultora.com" className="text-muted-foreground hover:text-primary transition-colors">
+                          contact@vaultora.com
                         </a>
                       </div>
                     </div>
@@ -695,7 +695,7 @@ const Index = () => {
             
             <div className="flex justify-center gap-6 mb-8">
               <a 
-                href="https://twitter.com/SentinelLockSec" 
+                href="https://twitter.com/VaultoraSec" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="group flex flex-col items-center gap-2 p-4 bg-card border border-border rounded-xl hover:border-primary/50 transition-all hover:shadow-lg"
@@ -706,11 +706,11 @@ const Index = () => {
                   </svg>
                 </div>
                 <span className="text-sm font-medium">Twitter</span>
-                <span className="text-xs text-muted-foreground">@SentinelLockSec</span>
+                <span className="text-xs text-muted-foreground">@VaultoraSec</span>
               </a>
               
               <a 
-                href="https://linkedin.com/company/sentinellock-cyber-defense" 
+                href="https://linkedin.com/company/vaultora-cyber-defense" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="group flex flex-col items-center gap-2 p-4 bg-card border border-border rounded-xl hover:border-primary/50 transition-all hover:shadow-lg"
@@ -725,7 +725,7 @@ const Index = () => {
               </a>
               
               <a 
-                href="https://facebook.com/SentinelLockSecurity" 
+                href="https://facebook.com/VaultoraSecurit" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="group flex flex-col items-center gap-2 p-4 bg-card border border-border rounded-xl hover:border-primary/50 transition-all hover:shadow-lg"
@@ -736,7 +736,7 @@ const Index = () => {
                   </svg>
                 </div>
                 <span className="text-sm font-medium">Facebook</span>
-                <span className="text-xs text-muted-foreground">SentinelLockSecurity</span>
+                <span className="text-xs text-muted-foreground">VaultoraSecurit</span>
               </a>
             </div>
             
