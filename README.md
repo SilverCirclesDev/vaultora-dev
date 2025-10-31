@@ -48,8 +48,8 @@ Vaultora Cyber Defense is a full-featured cybersecurity company website offering
 
 ```bash
 # Clone the repository
-git clone <YOUR_GIT_URL>
-cd <YOUR_PROJECT_NAME>
+git clone https://github.com/SilverCirclesDev/vaultora-dev.git
+cd vaultora-dev
 
 # Install dependencies
 npm install
