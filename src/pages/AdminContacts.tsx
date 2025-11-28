@@ -154,7 +154,6 @@ const AdminContacts = () => {
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Back to Dashboard
               </Button>
-              <Shield className="h-8 w-8 text-primary" />
               <div>
                 <h1 className="text-2xl font-bold text-gray-900">Contact Management</h1>
                 <p className="text-sm text-gray-500">Manage customer inquiries and submissions</p>
@@ -344,7 +343,7 @@ const AdminContacts = () => {
                       <Button
                         size="sm"
                         className="w-full"
-                        onClick={() => window.open(`mailto:${selectedContact.email}?subject=Re: Your inquiry&body=Hi ${selectedContact.name},%0D%0A%0D%0AThank you for contacting SentinelLock Cyber Defense.%0D%0A%0D%0A`)}
+                        onClick={() => window.open(`mailto:${selectedContact.email}?subject=Re: Your inquiry&body=Hi ${selectedContact.name},%0D%0A%0D%0AThank you for contacting Vaultora Cyber Defense.%0D%0A%0D%0A`)}
                       >
                         <Mail className="h-4 w-4 mr-2" />
                         Reply

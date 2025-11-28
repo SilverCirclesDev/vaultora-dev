@@ -28,6 +28,8 @@ import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import LocalSubmissions from "@/components/LocalSubmissions";
 import { submitContactForm } from "@/utils/contactSubmission";
+import { FAQ } from "@/components/FAQ";
+import { useImageAltAudit } from "@/utils/imageAltText";
 
 const Index = () => {
   const { toast } = useToast();
@@ -43,6 +45,9 @@ const Index = () => {
 
   // SEO: Update page title and meta description dynamically
   useEffect(() => {
+    // Scroll to top when component mounts
+    window.scrollTo(0, 0);
+    
     document.title = "Vaultora Cyber Defense | Professional Cybersecurity Services | Penetration Testing & Security Audits";
     
     // Update meta description
@@ -51,6 +56,9 @@ const Index = () => {
       metaDescription.setAttribute('content', 'Leading cybersecurity company providing penetration testing, network security, cloud protection, vulnerability assessments, and compliance consulting. Trusted by 500+ businesses across the US. 24/7 support available.');
     }
   }, []);
+
+  // Audit image alt text in development
+  useImageAltAudit();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -195,12 +203,12 @@ const Index = () => {
       <Navbar />
       
       {/* Hero Section */}
-      <section id="hero" className="relative pt-20 pb-16 overflow-hidden">
+      <section id="hero" className="relative pt-16 pb-12 overflow-hidden">
         <div className="absolute inset-0 grid-pattern opacity-10" />
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5" />
         
         <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="max-w-6xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
               <Shield className="h-4 w-4" />
               Trusted by 500+ Companies
@@ -212,7 +220,7 @@ const Index = () => {
               <span className="text-foreground">Digital Future</span>
             </h1>
             
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
+            <p className="text-xl text-muted-foreground max-w-4xl mx-auto mb-8">
               Professional cybersecurity services by certified security experts. Protect your business with comprehensive security solutions.
             </p>
             
@@ -240,7 +248,7 @@ const Index = () => {
             </div>
 
             {/* Hero Visual */}
-            <div className="relative max-w-3xl mx-auto">
+            <div className="relative max-w-6xl mx-auto">
               <div className="absolute inset-0 bg-gradient-primary opacity-20 blur-3xl" />
               <div className="relative bg-gradient-to-br from-primary/10 to-secondary/10 rounded-2xl p-8 border border-primary/20 shadow-cyber">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -272,18 +280,19 @@ const Index = () => {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-20 bg-card/30">
+      <section id="services" className="py-12 bg-card/30">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Comprehensive <span className="text-gradient-primary">Security Services</span>
-            </h2>
-            <p className="text-xl text-muted-foreground">
-              From penetration testing to compliance consulting, we provide end-to-end cybersecurity solutions.
-            </p>
-          </div>
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-10">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                Comprehensive <span className="text-gradient-primary">Security Services</span>
+              </h2>
+              <p className="text-xl text-muted-foreground">
+                From penetration testing to compliance consulting, we provide end-to-end cybersecurity solutions.
+              </p>
+            </div>
           
-          <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-8">
             {services.map((service, index) => (
               <div 
                 key={index}
@@ -324,19 +333,20 @@ const Index = () => {
             ))}
           </div>
 
-          <div className="text-center mt-12">
-            <Link to="/pricing">
-              <Button size="lg" className="glow-primary">
-                View All Pricing
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
+            <div className="text-center mt-12">
+              <Link to="/pricing">
+                <Button size="lg" className="glow-primary">
+                  View All Pricing
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-20">
+      <section id="about" className="py-12">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-16 items-center max-w-6xl mx-auto">
             <div>
@@ -438,18 +448,19 @@ const Index = () => {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 bg-card/30">
+      <section className="py-12 bg-card/30">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center mb-16">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-10">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Trusted by <span className="text-gradient-primary">Industry Leaders</span>
             </h2>
             <p className="text-xl text-muted-foreground">
               See what our clients say about our cybersecurity services.
             </p>
-          </div>
+            </div>
           
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <div className="grid md:grid-cols-3 gap-8">
             {[
               {
                 quote: "Vaultora helped us strengthen our data infrastructure and pass multiple compliance audits. Their professionalism and attention to detail is unmatched.",
@@ -493,15 +504,104 @@ const Index = () => {
                 </div>
               </div>
             ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Our Team Section */}
+      <section className="py-12">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-10">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                Meet Our <span className="text-gradient-primary">Expert Team</span>
+              </h2>
+              <p className="text-xl text-muted-foreground">
+                Certified cybersecurity professionals dedicated to protecting your business
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {[
+                {
+                  name: "Alex Rodriguez",
+                  role: "Chief Security Officer",
+                  bio: "15+ years in cybersecurity with expertise in enterprise security architecture and threat intelligence. Former security lead at Fortune 500 companies.",
+                  certifications: ["CISSP", "OSCP"],
+                  linkedin: "https://linkedin.com/in/alex-rodriguez-security",
+                  image: "AR"
+                },
+                {
+                  name: "Sarah Chen",
+                  role: "Lead Penetration Tester",
+                  bio: "Specialized in offensive security and ethical hacking. Discovered critical vulnerabilities in major platforms and contributed to open-source security tools.",
+                  certifications: ["CEH", "GPEN"],
+                  linkedin: "https://linkedin.com/in/sarah-chen-pentester",
+                  image: "SC"
+                },
+                {
+                  name: "Michael Johnson",
+                  role: "Security Architect",
+                  bio: "Expert in designing secure cloud infrastructures and zero-trust architectures. Helped 200+ organizations transition to secure cloud environments.",
+                  certifications: ["CISSP", "CISM"],
+                  linkedin: "https://linkedin.com/in/michael-johnson-architect",
+                  image: "MJ"
+                },
+                {
+                  name: "Emily Davis",
+                  role: "Compliance Specialist",
+                  bio: "Specializes in regulatory compliance including GDPR, HIPAA, and SOC 2. Guided numerous organizations through successful compliance audits.",
+                  certifications: ["CISA", "CRISC"],
+                  linkedin: "https://linkedin.com/in/emily-davis-compliance",
+                  image: "ED"
+                }
+              ].map((member, index) => (
+                <div 
+                  key={index}
+                  className="bg-card border border-border rounded-xl p-6 hover:border-primary/50 transition-all hover:shadow-lg group"
+                >
+                  <div className="w-24 h-24 rounded-full bg-gradient-primary flex items-center justify-center text-2xl font-bold text-white mx-auto mb-4 group-hover:scale-110 transition-transform">
+                    {member.image}
+                  </div>
+                  <h3 className="text-xl font-bold mb-1 text-center">{member.name}</h3>
+                  <p className="text-primary text-sm font-medium mb-3 text-center">{member.role}</p>
+                  <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
+                    {member.bio}
+                  </p>
+                  <div className="flex flex-wrap gap-2 justify-center mb-4">
+                    {member.certifications.map((cert, i) => (
+                      <span 
+                        key={i}
+                        className="px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-semibold"
+                      >
+                        {cert}
+                      </span>
+                    ))}
+                  </div>
+                  <a
+                    href={member.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors font-medium"
+                  >
+                    <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                    LinkedIn
+                  </a>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20">
+      <section id="contact" className="py-12">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            <div className="max-w-3xl mx-auto text-center mb-16">
+            <div className="text-center mb-10">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
                 Get In <span className="text-gradient-primary">Touch</span>
               </h2>
@@ -683,9 +783,9 @@ const Index = () => {
       </section>
 
       {/* Social Proof & Follow Section */}
-      <section className="py-16 bg-card/30">
+      <section className="py-10 bg-card/30">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="max-w-6xl mx-auto text-center">
             <h2 className="text-2xl md:text-3xl font-bold mb-4">
               Stay Connected & <span className="text-gradient-primary">Stay Secure</span>
             </h2>
@@ -747,10 +847,13 @@ const Index = () => {
         </div>
       </section>
 
+      {/* FAQ Section */}
+      <FAQ />
+
       {/* Final CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-primary/10 via-secondary/10 to-primary/10">
+      <section className="py-12 bg-gradient-to-r from-primary/10 via-secondary/10 to-primary/10">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="max-w-6xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Ready to Get <span className="text-gradient-primary">Secured?</span>
             </h2>

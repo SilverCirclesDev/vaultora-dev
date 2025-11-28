@@ -79,7 +79,7 @@ const AdminUsers = () => {
         const mockUsers = [
           {
             id: '1',
-            email: 'admin@sentinellock.com',
+            email: 'admin@vaultora.com',
             full_name: 'Admin User',
             created_at: new Date().toISOString(),
             email_confirmed_at: new Date().toISOString(),
@@ -219,8 +219,8 @@ const AdminUsers = () => {
   };
 
   const handleSendEmail = (email: string) => {
-    const subject = encodeURIComponent('Welcome to SentinelLock Admin');
-    const body = encodeURIComponent('Hello,\n\nWelcome to the SentinelLock admin system.\n\nBest regards,\nSentinelLock Team');
+    const subject = encodeURIComponent('Welcome to Vaultora Admin');
+    const body = encodeURIComponent('Hello,\n\nWelcome to the Vaultora admin system.\n\nBest regards,\nVaultora Team');
     window.open(`mailto:${email}?subject=${subject}&body=${body}`);
   };
 

@@ -1,4 +1,4 @@
-import { Shield, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -49,8 +49,7 @@ export const Navbar = () => {
             onClick={() => scrollToSection('hero')} 
             className="flex items-center gap-2 group"
           >
-            <Shield className="h-8 w-8 text-primary animate-glow" />
-            <span className="text-xl font-bold text-gradient-primary">Vaultora</span>
+            <span className="text-2xl font-bold text-gradient-primary">Vaultora</span>
           </button>
           
           {/* Desktop Navigation */}
@@ -62,16 +61,16 @@ export const Navbar = () => {
               Home
             </button>
             <button 
-              onClick={() => scrollToSection('about')} 
-              className="text-sm font-medium hover:text-primary transition-colors"
-            >
-              About
-            </button>
-            <button 
               onClick={() => scrollToSection('services')} 
               className="text-sm font-medium hover:text-primary transition-colors"
             >
               Services
+            </button>
+            <button 
+              onClick={() => scrollToSection('about')} 
+              className="text-sm font-medium hover:text-primary transition-colors"
+            >
+              About
             </button>
             <Link to="/pricing" className="text-sm font-medium hover:text-primary transition-colors">
               Pricing
@@ -120,16 +119,16 @@ export const Navbar = () => {
                 Home
               </button>
               <button 
-                onClick={() => scrollToSection('about')} 
-                className="text-sm font-medium hover:text-primary transition-colors text-left"
-              >
-                About
-              </button>
-              <button 
                 onClick={() => scrollToSection('services')} 
                 className="text-sm font-medium hover:text-primary transition-colors text-left"
               >
                 Services
+              </button>
+              <button 
+                onClick={() => scrollToSection('about')} 
+                className="text-sm font-medium hover:text-primary transition-colors text-left"
+              >
+                About
               </button>
               <Link 
                 to="/pricing" 

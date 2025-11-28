@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { Breadcrumb } from "@/components/Breadcrumb";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -22,6 +23,8 @@ const Pricing = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Scroll to top when component mounts
+    window.scrollTo(0, 0);
     fetchPlans();
   }, []);
 
@@ -130,6 +133,8 @@ const Pricing = () => {
       
       <main className="pt-32 pb-20">
         <div className="container mx-auto px-4">
+          <Breadcrumb currentPage="Pricing" />
+          
           {/* Hero Section */}
           <div className="max-w-4xl mx-auto text-center mb-20">
             <h1 className="text-5xl lg:text-6xl font-bold mb-6">

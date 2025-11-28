@@ -7,23 +7,32 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Shield, ArrowLeft, Save, Settings, Globe, Mail, Database, Key } from "lucide-react";
+import { Shield, ArrowLeft, Save, Globe, Mail, Database, Key, RefreshCw, AlertCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { useSiteSettings } from "@/hooks/useSiteSettings";
+import { SettingsSaveDialog } from "@/components/SettingsSaveDialog";
 
 const AdminSettings = () => {
-  const { user, loading } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { settings, loading: settingsLoading, updateMultipleSettings, fetchSettings } = useSiteSettings();
+  
+  const [showSaveDialog, setShowSaveDialog] = useState(false);
+  const [pendingSettings, setPendingSettings] = useState<any>(null);
+  const [hasChanges, setHasChanges] = useState(false);
+  
   const [siteSettings, setSiteSettings] = useState({
-    site_name: "SentinelLock Cyber Defense",
-    site_description: "Professional cybersecurity services including penetration testing, network security, and vulnerability assessments.",
-    contact_email: "contact@sentinellock.com",
-    contact_phone: "+1-234-567-8900",
-    address: "1234 Cyber Security Drive, Austin, TX 78701",
-    social_twitter: "@SentinelLockSec",
-    social_linkedin: "company/sentinellock-cyber-defense",
-    social_facebook: "SentinelLockSecurity",
+    site_name: "",
+    site_description: "",
+    contact_email: "",
+    contact_phone: "",
+    address: "",
+    social_twitter: "",
+    social_linkedin: "",
+    social_facebook: "",
+    social_instagram: "",
     maintenance_mode: false,
     analytics_enabled: true
   });
@@ -33,8 +42,8 @@ const AdminSettings = () => {
     smtp_port: "587",
     smtp_username: "",
     smtp_password: "",
-    from_email: "noreply@sentinellock.com",
-    from_name: "SentinelLock Cyber Defense"
+    from_email: "",
+    from_name: ""
   });
 
   const [securitySettings, setSecuritySettings] = useState({
@@ -45,57 +54,74 @@ const AdminSettings = () => {
     api_rate_limit: "100"
   });
 
+  // Load settings from database when available
   useEffect(() => {
-    if (!loading && !user) {
+    if (settings && Object.keys(settings).length > 0) {
+      setSiteSettings({
+        site_name: String(settings.site_name || ""),
+        site_description: String(settings.site_description || ""),
+        contact_email: String(settings.contact_email || ""),
+        contact_phone: String(settings.contact_phone || ""),
+        address: String(settings.address || ""),
+        social_twitter: String(settings.social_twitter || ""),
+        social_linkedin: String(settings.social_linkedin || ""),
+        social_facebook: String(settings.social_facebook || ""),
+        social_instagram: String(settings.social_instagram || ""),
+        maintenance_mode: Boolean(settings.maintenance_mode),
+        analytics_enabled: Boolean(settings.analytics_enabled)
+      });
+
+      setEmailSettings({
+        smtp_host: String(settings.smtp_host || ""),
+        smtp_port: String(settings.smtp_port || "587"),
+        smtp_username: String(settings.smtp_username || ""),
+        smtp_password: String(settings.smtp_password || ""),
+        from_email: String(settings.from_email || ""),
+        from_name: String(settings.from_name || "")
+      });
+
+      setSecuritySettings({
+        session_timeout: String(settings.session_timeout || "24"),
+        max_login_attempts: String(settings.max_login_attempts || "5"),
+        password_min_length: String(settings.password_min_length || "8"),
+        require_2fa: Boolean(settings.require_2fa),
+        api_rate_limit: String(settings.api_rate_limit || "100")
+      });
+    }
+  }, [settings]);
+
+  useEffect(() => {
+    if (!authLoading && !user) {
       navigate("/admin");
     }
-  }, [user, loading, navigate]);
+  }, [user, authLoading, navigate]);
 
   const handleSaveSiteSettings = async () => {
-    try {
-      // In a real implementation, you would save these to a settings table
-      // For now, we'll just show a success message
-      toast({
-        title: "Success",
-        description: "Site settings saved successfully",
-      });
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error.message,
-        variant: "destructive"
-      });
-    }
+    setPendingSettings(siteSettings);
+    setShowSaveDialog(true);
   };
 
   const handleSaveEmailSettings = async () => {
-    try {
-      toast({
-        title: "Success",
-        description: "Email settings saved successfully",
-      });
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error.message,
-        variant: "destructive"
-      });
-    }
+    setPendingSettings(emailSettings);
+    setShowSaveDialog(true);
   };
 
   const handleSaveSecuritySettings = async () => {
-    try {
-      toast({
-        title: "Success",
-        description: "Security settings saved successfully",
-      });
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error.message,
-        variant: "destructive"
-      });
+    setPendingSettings(securitySettings);
+    setShowSaveDialog(true);
+  };
+
+  const confirmSave = async () => {
+    if (!pendingSettings) return;
+
+    const success = await updateMultipleSettings(pendingSettings);
+    if (success) {
+      setHasChanges(false);
+      await fetchSettings(); // Refresh settings from database
     }
+    
+    setShowSaveDialog(false);
+    setPendingSettings(null);
   };
 
   const handleTestEmail = async () => {
@@ -128,11 +154,14 @@ const AdminSettings = () => {
     }
   };
 
-  if (loading) {
+  if (authLoading || settingsLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="animate-pulse">
-          <Shield className="h-16 w-16 text-primary" />
+        <div className="text-center">
+          <div className="animate-pulse mb-4">
+            <Shield className="h-16 w-16 text-primary mx-auto" />
+          </div>
+          <p className="text-muted-foreground">Loading settings...</p>
         </div>
       </div>
     );
@@ -142,8 +171,17 @@ const AdminSettings = () => {
     return null;
   }
 
+  const settingsCount = pendingSettings ? Object.keys(pendingSettings).length : 0;
+
   return (
     <div className="min-h-screen bg-gray-50">
+      <SettingsSaveDialog
+        open={showSaveDialog}
+        onOpenChange={setShowSaveDialog}
+        onConfirm={confirmSave}
+        settingsCount={settingsCount}
+      />
+
       {/* Header */}
       <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
         <div className="px-6 py-4">
@@ -163,9 +201,20 @@ const AdminSettings = () => {
                 <p className="text-sm text-gray-500">Configure your website settings and preferences</p>
               </div>
             </div>
+            <Button
+              onClick={() => fetchSettings()}
+              variant="outline"
+              size="sm"
+              className="gap-2"
+            >
+              <RefreshCw className="h-4 w-4" />
+              Refresh
+            </Button>
           </div>
         </div>
       </header>
+
+
 
       {/* Main Content */}
       <main className="p-6">
@@ -197,7 +246,10 @@ const AdminSettings = () => {
                       <Input
                         id="site_name"
                         value={siteSettings.site_name}
-                        onChange={(e) => setSiteSettings({...siteSettings, site_name: e.target.value})}
+                        onChange={(e) => {
+                          setSiteSettings({...siteSettings, site_name: e.target.value});
+                          setHasChanges(true);
+                        }}
                       />
                     </div>
                     <div className="space-y-2">

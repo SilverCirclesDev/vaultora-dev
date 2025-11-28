@@ -21,6 +21,7 @@ const AdminBlog = () => {
     slug: "",
     excerpt: "",
     content: "",
+    featured_image_url: "",
     meta_title: "",
     meta_description: "",
     tags: "",
@@ -93,6 +94,7 @@ const AdminBlog = () => {
         slug: "",
         excerpt: "",
         content: "",
+        featured_image_url: "",
         meta_title: "",
         meta_description: "",
         tags: "",
@@ -117,6 +119,7 @@ const AdminBlog = () => {
       slug: post.slug,
       excerpt: post.excerpt || "",
       content: post.content,
+      featured_image_url: post.featured_image_url || "",
       meta_title: post.meta_title || "",
       meta_description: post.meta_description || "",
       tags: post.tags ? post.tags.join(', ') : "",
@@ -180,7 +183,6 @@ const AdminBlog = () => {
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Back to Dashboard
               </Button>
-              <Shield className="h-8 w-8 text-primary" />
               <div>
                 <h1 className="text-2xl font-bold text-gray-900">Blog Management</h1>
                 <p className="text-sm text-gray-500">Manage your blog posts</p>
@@ -237,13 +239,32 @@ const AdminBlog = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="content">Content *</Label>
+                  <Label htmlFor="featured_image_url">Featured Image URL</Label>
+                  <Input
+                    id="featured_image_url"
+                    value={formData.featured_image_url}
+                    onChange={(e) => setFormData({...formData, featured_image_url: e.target.value})}
+                    placeholder="https://images.unsplash.com/photo-xxx"
+                  />
+                  <p className="text-xs text-gray-500">Enter the URL of the featured image for this blog post</p>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="content">Content * (HTML)</Label>
+                  <div className="text-sm text-gray-600 mb-2 p-3 bg-blue-50 border border-blue-200 rounded">
+                    <strong>💡 Tip:</strong> You can add images using HTML:
+                    <code className="block mt-1 text-xs bg-white p-2 rounded">
+                      &lt;img src="https://your-image-url.com/image.jpg" alt="Description" /&gt;
+                    </code>
+                    <p className="mt-2 text-xs">Images will be displayed full-width with rounded corners and hover effects.</p>
+                  </div>
                   <Textarea
                     id="content"
                     value={formData.content}
                     onChange={(e) => setFormData({...formData, content: e.target.value})}
                     rows={10}
                     required
+                    placeholder="Enter HTML content. Use <h2>, <h3>, <p>, <img>, <ul>, <ol>, etc."
                   />
                 </div>
 
@@ -303,6 +324,7 @@ const AdminBlog = () => {
                         slug: "",
                         excerpt: "",
                         content: "",
+                        featured_image_url: "",
                         meta_title: "",
                         meta_description: "",
                         tags: "",

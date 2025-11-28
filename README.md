@@ -87,6 +87,7 @@ VITE_SUPABASE_PUBLISHABLE_KEY=your-supabase-anon-key
 - **React 18** - Modern React with hooks and context
 - **TypeScript** - Type-safe development
 - **Vite** - Fast build tool and dev server
+- **Material UI v5** - Enterprise-grade component library with custom theme
 - **Tailwind CSS** - Utility-first CSS framework
 - **shadcn/ui** - High-quality component library
 - **React Router** - Client-side routing

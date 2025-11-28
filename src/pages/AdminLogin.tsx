@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Shield } from "lucide-react";
+import { Shield, ArrowLeft, Eye, EyeOff } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 
 const AdminLogin = () => {
@@ -11,6 +11,7 @@ const AdminLogin = () => {
   const [password, setPassword] = useState("");
   const [isSignUp, setIsSignUp] = useState(false);
   const [fullName, setFullName] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const { signIn, signUp, user, isAdmin, loading, checkAdminRole } = useAuth();
   const navigate = useNavigate();
 
@@ -62,15 +63,26 @@ const AdminLogin = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-background to-primary/5 p-4">
       <div className="w-full max-w-md">
-        <div className="bg-card border border-border rounded-lg p-8 shadow-cyber">
+        {/* Back to Home Link */}
+        <Link 
+          to="/" 
+          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-6"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Back to Home
+        </Link>
+
+        <div className="bg-card border border-border rounded-xl p-8 shadow-2xl">
           {/* Logo and Title */}
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4">
-              <Shield className="h-8 w-8 text-primary" />
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-2xl mb-4 shadow-lg">
+              <Shield className="h-10 w-10 text-primary" />
             </div>
-            <h1 className="text-3xl font-bold mb-2">Admin Portal</h1>
+            <h1 className="text-3xl font-bold mb-2 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              Admin Portal
+            </h1>
             <p className="text-muted-foreground">Vaultora Cyber Defense</p>
           </div>
 
@@ -95,7 +107,7 @@ const AdminLogin = () => {
               <Input
                 id="email"
                 type="email"
-                placeholder="admin@sentinellock.com"
+                placeholder="admin@vaultora.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -105,59 +117,96 @@ const AdminLogin = () => {
 
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                placeholder="Enter your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                className="bg-background"
-              />
+              <div className="relative">
+                <Input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  className="bg-background pr-10"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {showPassword ? (
+                    <EyeOff className="h-4 w-4" />
+                  ) : (
+                    <Eye className="h-4 w-4" />
+                  )}
+                </button>
+              </div>
+              {isSignUp && (
+                <p className="text-xs text-muted-foreground mt-1">
+                  Password must be at least 6 characters
+                </p>
+              )}
             </div>
 
-            <div className="flex items-center justify-between text-sm">
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" className="rounded" />
-                <span className="text-muted-foreground">Remember me</span>
-              </label>
-              <a href="#" className="text-primary hover:underline">
-                Forgot password?
-              </a>
-            </div>
+            {!isSignUp && (
+              <div className="flex items-center justify-between text-sm">
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input type="checkbox" className="rounded border-border" />
+                  <span className="text-muted-foreground">Remember me</span>
+                </label>
+                <button
+                  type="button"
+                  onClick={() => {
+                    alert("Please contact your system administrator to reset your password.");
+                  }}
+                  className="text-primary hover:underline"
+                >
+                  Forgot password?
+                </button>
+              </div>
+            )}
 
-            <Button type="submit" className="w-full glow-primary">
-              {isSignUp ? "Create Account" : "Sign In"}
+            <Button type="submit" className="w-full glow-primary text-lg py-6">
+              {isSignUp ? "Create Account" : "Sign In to Dashboard"}
             </Button>
 
-            <div className="text-center space-y-2">
+            <div className="text-center space-y-3">
               <button
                 type="button"
-                onClick={() => setIsSignUp(!isSignUp)}
-                className="text-sm text-primary hover:underline block w-full"
+                onClick={() => {
+                  setIsSignUp(!isSignUp);
+                  setFullName("");
+                  setPassword("");
+                }}
+                className="text-sm text-primary hover:underline block w-full font-medium"
               >
                 {isSignUp
                   ? "Already have an account? Sign in"
-                  : "Need an account? Sign up"}
+                  : "Need an account? Contact administrator"}
               </button>
-              
-              {/* Development bypass */}
-              {import.meta.env.DEV && (
-                <button
-                  type="button"
-                  onClick={() => navigate("/admin/dashboard")}
-                  className="text-xs text-orange-600 hover:underline block w-full"
-                >
-                  🚧 Dev Mode: Skip to Dashboard
-                </button>
-              )}
             </div>
           </form>
 
           {/* Security Notice */}
           <div className="mt-6 p-4 bg-primary/5 border border-primary/20 rounded-lg">
-            <p className="text-xs text-muted-foreground text-center">
-              🔒 This is a secure admin portal. All access attempts are logged and monitored.
+            <div className="flex items-start gap-3">
+              <Shield className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+              <div>
+                <p className="text-xs font-semibold text-foreground mb-1">
+                  Secure Admin Access
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  This portal is protected by enterprise-grade security. All access attempts are logged and monitored for unauthorized activity.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Help Text */}
+          <div className="mt-4 text-center">
+            <p className="text-xs text-muted-foreground">
+              Need help? Contact{" "}
+              <a href="mailto:support@vaultora.com" className="text-primary hover:underline">
+                support@vaultora.com
+              </a>
             </p>
           </div>
         </div>

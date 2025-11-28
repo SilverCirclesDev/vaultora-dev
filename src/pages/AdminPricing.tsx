@@ -196,7 +196,6 @@ const AdminPricing = () => {
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Back to Dashboard
               </Button>
-              <Shield className="h-8 w-8 text-primary" />
               <div>
                 <h1 className="text-2xl font-bold text-gray-900">Pricing Management</h1>
                 <p className="text-sm text-gray-500">Manage your pricing plans</p>

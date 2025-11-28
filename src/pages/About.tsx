@@ -12,7 +12,7 @@ const About = () => {
           {/* Hero Section */}
           <div className="max-w-4xl mx-auto text-center mb-20">
             <h1 className="text-5xl lg:text-6xl font-bold mb-6">
-              About <span className="text-gradient-primary">SentinelLock</span>
+              About <span className="text-gradient-primary">Vaultora</span>
             </h1>
             <p className="text-xl text-muted-foreground">
               Leading the charge in cybersecurity excellence, one layer at a time.
@@ -25,7 +25,7 @@ const About = () => {
               <div>
                 <h2 className="text-3xl font-bold mb-4">Our Mission</h2>
                 <p className="text-muted-foreground mb-6">
-                  At SentinelLock Cyber Defense, we are committed to protecting your digital assets 
+                  At Vaultora Cyber Defense, we are committed to protecting your digital assets 
                   through comprehensive security solutions. Our mission is to provide world-class 
                   cybersecurity services that safeguard businesses against evolving threats.
                 </p>
@@ -52,7 +52,7 @@ const About = () => {
                 <div className="w-32 h-32 rounded-full bg-gradient-primary flex items-center justify-center text-4xl font-bold mx-auto mb-6">
                   SL
                 </div>
-                <h3 className="text-2xl font-bold mb-2">SentinelLock Team</h3>
+                <h3 className="text-2xl font-bold mb-2">Vaultora Team</h3>
                 <p className="text-primary mb-4">Certified Cybersecurity Professionals</p>
                 <p className="text-muted-foreground mb-4">
                   Our team consists of certified cybersecurity professionals with extensive experience in 

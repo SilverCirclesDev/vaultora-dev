@@ -20,7 +20,7 @@ Disallow: /admin/
 Disallow: /secure-admin-portal-2024
 
 # Sitemap location
-Sitemap: https://sentinellock.com/sitemap.xml
+Sitemap: https://vaultora.com/sitemap.xml
 
 # Crawl delay for general bots
 Crawl-delay: 1

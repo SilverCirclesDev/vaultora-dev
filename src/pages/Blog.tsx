@@ -2,8 +2,32 @@ import { useEffect, useState } from "react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Link } from "react-router-dom";
-import { Calendar, Clock, ArrowRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { 
+  Container, 
+  Box, 
+  Typography, 
+  Grid, 
+  Card, 
+  CardContent, 
+  CardMedia, 
+  Chip, 
+  TextField, 
+  InputAdornment,
+  Stack,
+  Button,
+  Skeleton,
+  IconButton,
+  Divider
+} from '@mui/material';
+import { 
+  Search as SearchIcon, 
+  CalendarToday, 
+  AccessTime, 
+  ArrowForward,
+  FilterList,
+  TrendingUp
+} from '@mui/icons-material';
 
 interface BlogPost {
   id: string;
@@ -17,11 +41,50 @@ interface BlogPost {
 
 const Blog = () => {
   const [articles, setArticles] = useState<BlogPost[]>([]);
+  const [filteredArticles, setFilteredArticles] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedTag, setSelectedTag] = useState<string | null>(null);
 
   useEffect(() => {
+    // Scroll to top when component mounts
+    window.scrollTo(0, 0);
     fetchBlogPosts();
   }, []);
+
+  useEffect(() => {
+    filterArticles();
+  }, [articles, searchQuery, selectedTag]);
+
+  const filterArticles = () => {
+    let filtered = [...articles];
+
+    // Filter by search query
+    if (searchQuery) {
+      filtered = filtered.filter(article =>
+        article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        article.excerpt?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        article.content.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    // Filter by tag
+    if (selectedTag) {
+      filtered = filtered.filter(article =>
+        article.tags?.includes(selectedTag)
+      );
+    }
+
+    setFilteredArticles(filtered);
+  };
+
+  const getAllTags = () => {
+    const tagsSet = new Set<string>();
+    articles.forEach(article => {
+      article.tags?.forEach(tag => tagsSet.add(tag));
+    });
+    return Array.from(tagsSet);
+  };
 
   const fetchBlogPosts = async () => {
     try {
@@ -104,163 +167,410 @@ const Blog = () => {
     return images[index % images.length];
   };
 
+  const displayArticles = filteredArticles.length > 0 ? filteredArticles : articles;
+  const allTags = getAllTags();
+
   return (
-    <div className="min-h-screen">
+    <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
       <Navbar />
       
-      <main className="pt-32 pb-20">
-        <div className="container mx-auto px-4">
-          {/* Hero Section */}
-          <div className="max-w-4xl mx-auto text-center mb-20">
-            <h1 className="text-5xl lg:text-6xl font-bold mb-6">
-              Cybersecurity <span className="text-gradient-primary">Insights & News</span>
-            </h1>
-            <p className="text-xl text-muted-foreground">
-              Stay informed with the latest cybersecurity trends, best practices, and threat intelligence from industry experts.
-            </p>
-          </div>
+      <Container 
+        maxWidth="lg" 
+        component="main" 
+        sx={{ 
+          display: 'flex', 
+          flexDirection: 'column', 
+          pt: 16, 
+          pb: 10,
+          gap: 6
+        }}
+      >
+        {/* Hero Section */}
+        <Box sx={{ textAlign: 'center', mb: 4 }}>
+          <Typography 
+            variant="h1" 
+            sx={{ 
+              fontSize: { xs: '2.5rem', md: '3.5rem', lg: '4rem' },
+              fontWeight: 700,
+              mb: 2
+            }}
+          >
+            Cybersecurity{' '}
+            <Box 
+              component="span" 
+              sx={{ 
+                background: 'linear-gradient(135deg, #2563eb 0%, #7c3aed 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text'
+              }}
+            >
+              Insights & News
+            </Box>
+          </Typography>
+          <Typography 
+            variant="h5" 
+            color="text.secondary" 
+            sx={{ maxWidth: '800px', mx: 'auto', mb: 4 }}
+          >
+            Stay informed with the latest cybersecurity trends, best practices, and threat intelligence from industry experts.
+          </Typography>
+        </Box>
 
-          {/* Featured Article */}
-          {loading ? (
-            <div className="max-w-6xl mx-auto mb-20">
-              <div className="bg-card border border-border rounded-lg overflow-hidden">
-                <div className="grid md:grid-cols-2 gap-0">
-                  <div className="h-64 md:h-auto bg-gray-200 animate-pulse" />
-                  <div className="p-8 flex flex-col justify-center">
-                    <div className="h-6 bg-gray-200 rounded mb-4 animate-pulse" />
-                    <div className="h-8 bg-gray-200 rounded mb-4 animate-pulse" />
-                    <div className="h-4 bg-gray-200 rounded mb-2 animate-pulse" />
-                    <div className="h-4 bg-gray-200 rounded mb-6 animate-pulse" />
-                    <div className="h-4 bg-gray-200 rounded w-32 animate-pulse" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          ) : articles.length > 0 ? (
-            <div className="max-w-6xl mx-auto mb-20">
-              <div className="bg-card border border-border rounded-lg overflow-hidden hover:border-primary/50 transition-colors">
-                <div className="grid md:grid-cols-2 gap-0">
-                  <div 
-                    className="h-64 md:h-auto bg-cover bg-center"
-                    style={{ backgroundImage: `url(${articles[0].featured_image_url || getDefaultImage(0)})` }}
-                  />
-                  <div className="p-8 flex flex-col justify-center">
-                    <div className="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-semibold mb-4 w-fit">
-                      Featured
-                    </div>
-                    <h2 className="text-3xl font-bold mb-4">{articles[0].title}</h2>
-                    <p className="text-muted-foreground mb-6">{articles[0].excerpt}</p>
-                    <div className="flex items-center gap-4 text-sm text-muted-foreground mb-6">
-                      <div className="flex items-center gap-2">
-                        <Calendar className="h-4 w-4" />
-                        {formatDate(articles[0].published_at)}
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Clock className="h-4 w-4" />
-                        {estimateReadTime(articles[0].content)}
-                      </div>
-                    </div>
-                    <Link 
-                      to={`/blog/${articles[0].id}`}
-                      className="inline-flex items-center gap-2 text-primary hover:gap-3 transition-all font-semibold"
-                    >
-                      Read Full Article <ArrowRight className="h-4 w-4" />
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ) : null}
+        {/* Search and Filter Section */}
+        <Box sx={{ mb: 4 }}>
+          <Stack direction={{ xs: 'column', md: 'row' }} spacing={2} sx={{ mb: 3 }}>
+            <TextField
+              fullWidth
+              placeholder="Search articles..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon color="action" />
+                  </InputAdornment>
+                ),
+              }}
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  bgcolor: 'white',
+                  '&:hover': {
+                    '& .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'primary.main',
+                    },
+                  },
+                },
+              }}
+            />
+            <Button
+              variant="outlined"
+              startIcon={<FilterList />}
+              sx={{ minWidth: { xs: '100%', md: '150px' } }}
+            >
+              Filter
+            </Button>
+          </Stack>
 
-          {/* Articles Grid */}
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold mb-12">Latest Articles</h2>
-            {loading ? (
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {[1, 2, 3, 4, 5, 6].map((i) => (
-                  <div key={i} className="bg-card border border-border rounded-lg overflow-hidden">
-                    <div className="h-48 bg-gray-200 animate-pulse" />
-                    <div className="p-6">
-                      <div className="h-4 bg-gray-200 rounded mb-3 animate-pulse" />
-                      <div className="h-6 bg-gray-200 rounded mb-3 animate-pulse" />
-                      <div className="h-4 bg-gray-200 rounded mb-2 animate-pulse" />
-                      <div className="h-4 bg-gray-200 rounded mb-4 animate-pulse" />
-                      <div className="h-3 bg-gray-200 rounded w-24 animate-pulse" />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : articles.length > 1 ? (
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {articles.slice(1).map((article, index) => (
-                  <article 
-                    key={article.id}
-                    className="bg-card border border-border rounded-lg overflow-hidden hover:border-primary/50 transition-all hover:shadow-cyber group"
-                  >
-                    <div 
-                      className="h-48 bg-cover bg-center"
-                      style={{ backgroundImage: `url(${article.featured_image_url || getDefaultImage(index + 1)})` }}
-                    />
-                    <div className="p-6">
-                      {article.tags && article.tags.length > 0 && (
-                        <div className="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-semibold mb-3">
-                          {article.tags[0]}
-                        </div>
-                      )}
-                      <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors">
-                        {article.title}
-                      </h3>
-                      <p className="text-muted-foreground text-sm mb-4">{article.excerpt}</p>
-                      <div className="flex items-center gap-4 text-xs text-muted-foreground mb-4">
-                        <div className="flex items-center gap-1">
-                          <Calendar className="h-3 w-3" />
-                          {formatDate(article.published_at)}
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <Clock className="h-3 w-3" />
-                          {estimateReadTime(article.content)}
-                        </div>
-                      </div>
-                      <Link 
-                        to={`/blog/${article.id}`}
-                        className="inline-flex items-center gap-2 text-primary hover:gap-3 transition-all text-sm font-semibold"
-                      >
-                        Read More <ArrowRight className="h-3 w-3" />
-                      </Link>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-12">
-                <p className="text-muted-foreground mb-4">No blog posts available yet.</p>
-                <p className="text-sm text-muted-foreground">Check back soon for cybersecurity insights and updates!</p>
-              </div>
-            )}
-          </div>
-
-          {/* Newsletter CTA */}
-          <div className="max-w-4xl mx-auto mt-20 bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20 rounded-lg p-8 text-center">
-            <h2 className="text-3xl font-bold mb-4">Stay Updated</h2>
-            <p className="text-muted-foreground mb-6">
-              Subscribe to our newsletter for weekly cybersecurity insights and updates
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              <input 
-                type="email" 
-                placeholder="Your email address"
-                className="flex-1 px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:border-primary"
+          {/* Tags */}
+          {allTags.length > 0 && (
+            <Stack direction="row" spacing={1} flexWrap="wrap" gap={1}>
+              <Chip
+                label="All"
+                onClick={() => setSelectedTag(null)}
+                color={selectedTag === null ? 'primary' : 'default'}
+                sx={{ cursor: 'pointer' }}
               />
-              <button className="px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity font-semibold">
-                Subscribe
-              </button>
-            </div>
-          </div>
-        </div>
-      </main>
+              {allTags.map((tag) => (
+                <Chip
+                  key={tag}
+                  label={tag}
+                  onClick={() => setSelectedTag(tag === selectedTag ? null : tag)}
+                  color={selectedTag === tag ? 'primary' : 'default'}
+                  variant={selectedTag === tag ? 'filled' : 'outlined'}
+                  sx={{ cursor: 'pointer' }}
+                />
+              ))}
+            </Stack>
+          )}
+
+          {/* Results count */}
+          {searchQuery && (
+            <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
+              Found {displayArticles.length} article{displayArticles.length !== 1 ? 's' : ''}
+            </Typography>
+          )}
+        </Box>
+
+        {/* Featured Article */}
+        {loading ? (
+          <Card sx={{ mb: 6 }}>
+            <Grid container>
+              <Grid item xs={12} md={6}>
+                <Skeleton variant="rectangular" height={400} />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <CardContent sx={{ p: 4, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                  <Skeleton width={100} height={32} sx={{ mb: 2 }} />
+                  <Skeleton width="100%" height={40} sx={{ mb: 2 }} />
+                  <Skeleton width="100%" height={60} sx={{ mb: 3 }} />
+                  <Skeleton width={200} height={24} />
+                </CardContent>
+              </Grid>
+            </Grid>
+          </Card>
+        ) : displayArticles.length > 0 && !searchQuery && !selectedTag ? (
+          <Card 
+            sx={{ 
+              mb: 6,
+              transition: 'all 0.3s',
+              '&:hover': {
+                boxShadow: 6,
+                transform: 'translateY(-4px)',
+              }
+            }}
+          >
+            <Grid container>
+              <Grid item xs={12} md={6}>
+                <CardMedia
+                  component="img"
+                  height="400"
+                  image={displayArticles[0].featured_image_url || getDefaultImage(0)}
+                  alt={displayArticles[0].title}
+                  sx={{ height: { xs: 250, md: 400 }, objectFit: 'cover' }}
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <CardContent sx={{ p: 4, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                  <Chip 
+                    icon={<TrendingUp />}
+                    label="Featured" 
+                    color="primary" 
+                    size="small"
+                    sx={{ mb: 2, width: 'fit-content' }}
+                  />
+                  <Typography 
+                    component={Link}
+                    to={`/blog/${displayArticles[0].id}`}
+                    variant="h3" 
+                    gutterBottom 
+                    sx={{ 
+                      fontWeight: 700,
+                      textDecoration: 'none',
+                      color: 'text.primary',
+                      cursor: 'pointer',
+                      transition: 'color 0.3s',
+                      display: 'block',
+                      '&:hover': {
+                        color: 'primary.main',
+                      }
+                    }}
+                  >
+                    {displayArticles[0].title}
+                  </Typography>
+                  <Typography variant="body1" color="text.secondary" paragraph>
+                    {displayArticles[0].excerpt}
+                  </Typography>
+                  <Stack direction="row" spacing={3} sx={{ mb: 3 }}>
+                    <Stack direction="row" spacing={1} alignItems="center">
+                      <CalendarToday sx={{ fontSize: 16, color: 'text.secondary' }} />
+                      <Typography variant="body2" color="text.secondary">
+                        {formatDate(displayArticles[0].published_at)}
+                      </Typography>
+                    </Stack>
+                    <Stack direction="row" spacing={1} alignItems="center">
+                      <AccessTime sx={{ fontSize: 16, color: 'text.secondary' }} />
+                      <Typography variant="body2" color="text.secondary">
+                        {estimateReadTime(displayArticles[0].content)}
+                      </Typography>
+                    </Stack>
+                  </Stack>
+                  <Button
+                    component={Link}
+                    to={`/blog/${displayArticles[0].id}`}
+                    variant="contained"
+                    endIcon={<ArrowForward />}
+                    size="large"
+                    sx={{ width: 'fit-content' }}
+                  >
+                    Read Full Article
+                  </Button>
+                </CardContent>
+              </Grid>
+            </Grid>
+          </Card>
+        ) : null}
+
+        {/* Articles Grid */}
+        <Box>
+          <Typography variant="h3" gutterBottom sx={{ fontWeight: 700, mb: 4 }}>
+            {searchQuery || selectedTag ? 'Search Results' : 'Latest Articles'}
+          </Typography>
+          
+          {loading ? (
+            <Grid container spacing={4}>
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <Grid item xs={12} sm={6} md={4} key={i}>
+                  <Card>
+                    <Skeleton variant="rectangular" height={200} />
+                    <CardContent>
+                      <Skeleton width={80} height={24} sx={{ mb: 2 }} />
+                      <Skeleton width="100%" height={32} sx={{ mb: 1 }} />
+                      <Skeleton width="100%" height={60} sx={{ mb: 2 }} />
+                      <Skeleton width={150} height={20} />
+                    </CardContent>
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
+          ) : displayArticles.length > 0 ? (
+            <Grid container spacing={4}>
+              {(searchQuery || selectedTag ? displayArticles : displayArticles.slice(1)).map((article, index) => (
+                <Grid item xs={12} sm={6} md={4} key={article.id}>
+                  <Card 
+                    sx={{ 
+                      height: '100%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      transition: 'all 0.3s',
+                      '&:hover': {
+                        boxShadow: 6,
+                        transform: 'translateY(-4px)',
+                      }
+                    }}
+                  >
+                    <CardMedia
+                      component={Link}
+                      to={`/blog/${article.id}`}
+                      sx={{
+                        height: 200,
+                        backgroundImage: `url(${article.featured_image_url || getDefaultImage(index + 1)})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        cursor: 'pointer',
+                        transition: 'transform 0.3s',
+                        '&:hover': {
+                          transform: 'scale(1.05)',
+                        }
+                      }}
+                    />
+                    <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
+                      {article.tags && article.tags.length > 0 && (
+                        <Chip 
+                          label={article.tags[0]} 
+                          size="small" 
+                          color="primary"
+                          variant="outlined"
+                          sx={{ mb: 2, width: 'fit-content' }}
+                        />
+                      )}
+                      <Typography 
+                        component={Link}
+                        to={`/blog/${article.id}`}
+                        variant="h6" 
+                        gutterBottom 
+                        sx={{ 
+                          fontWeight: 600,
+                          textDecoration: 'none',
+                          color: 'text.primary',
+                          cursor: 'pointer',
+                          transition: 'color 0.3s',
+                          '&:hover': {
+                            color: 'primary.main',
+                          }
+                        }}
+                      >
+                        {article.title}
+                      </Typography>
+                      <Typography 
+                        variant="body2" 
+                        color="text.secondary" 
+                        paragraph
+                        sx={{ 
+                          flexGrow: 1,
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          display: '-webkit-box',
+                          WebkitLineClamp: 3,
+                          WebkitBoxOrient: 'vertical',
+                        }}
+                      >
+                        {article.excerpt}
+                      </Typography>
+                      <Stack direction="row" spacing={2} sx={{ mb: 2 }}>
+                        <Stack direction="row" spacing={0.5} alignItems="center">
+                          <CalendarToday sx={{ fontSize: 14, color: 'text.secondary' }} />
+                          <Typography variant="caption" color="text.secondary">
+                            {formatDate(article.published_at)}
+                          </Typography>
+                        </Stack>
+                        <Stack direction="row" spacing={0.5} alignItems="center">
+                          <AccessTime sx={{ fontSize: 14, color: 'text.secondary' }} />
+                          <Typography variant="caption" color="text.secondary">
+                            {estimateReadTime(article.content)}
+                          </Typography>
+                        </Stack>
+                      </Stack>
+                      <Button
+                        component={Link}
+                        to={`/blog/${article.id}`}
+                        variant="text"
+                        endIcon={<ArrowForward />}
+                        sx={{ width: 'fit-content', p: 0 }}
+                      >
+                        Read More
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
+          ) : (
+            <Box sx={{ textAlign: 'center', py: 8 }}>
+              <Typography variant="h6" color="text.secondary" gutterBottom>
+                No articles found
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {searchQuery ? 'Try adjusting your search terms' : 'Check back soon for cybersecurity insights and updates!'}
+              </Typography>
+              {(searchQuery || selectedTag) && (
+                <Button
+                  variant="outlined"
+                  onClick={() => {
+                    setSearchQuery('');
+                    setSelectedTag(null);
+                  }}
+                  sx={{ mt: 2 }}
+                >
+                  Clear Filters
+                </Button>
+              )}
+            </Box>
+          )}
+        </Box>
+
+        {/* Newsletter CTA */}
+        <Box 
+          sx={{ 
+            mt: 8,
+            p: 6,
+            background: 'linear-gradient(135deg, #eff6ff 0%, #f5f3ff 100%)',
+            borderRadius: 4,
+            textAlign: 'center',
+            border: '1px solid',
+            borderColor: 'primary.light',
+          }}
+        >
+          <Typography variant="h4" gutterBottom sx={{ fontWeight: 700 }}>
+            Stay Updated
+          </Typography>
+          <Typography variant="body1" color="text.secondary" paragraph sx={{ mb: 4 }}>
+            Subscribe to our newsletter for weekly cybersecurity insights and updates
+          </Typography>
+          <Stack 
+            direction={{ xs: 'column', sm: 'row' }} 
+            spacing={2} 
+            sx={{ maxWidth: 500, mx: 'auto' }}
+          >
+            <TextField
+              fullWidth
+              placeholder="Your email address"
+              type="email"
+              sx={{ bgcolor: 'white' }}
+            />
+            <Button 
+              variant="contained" 
+              size="large"
+              sx={{ minWidth: { xs: '100%', sm: 150 } }}
+            >
+              Subscribe
+            </Button>
+          </Stack>
+        </Box>
+      </Container>
 
       <Footer />
-    </div>
+    </Box>
   );
 };
 
