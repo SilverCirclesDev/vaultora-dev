@@ -7,6 +7,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { muiTheme } from "@/theme/muiTheme";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import Index from "./pages/Index";
 import Pricing from "./pages/Pricing";
 import Blog from "./pages/Blog";
@@ -33,6 +34,7 @@ const App = () => (
         <AuthProvider>
           <Toaster />
           <Sonner />
+          <SpeedInsights />
           <BrowserRouter
             future={{
               v7_startTransition: true,
