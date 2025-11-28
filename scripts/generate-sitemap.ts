@@ -30,7 +30,8 @@ async function generateSitemap() {
       console.warn('⚠️  Supabase connection failed, generating sitemap without blog posts');
     }
   } else {
-    console.warn('⚠️  Supabase credentials not found, generating sitemap without blog posts');
+    console.log('ℹ️  Supabase credentials not available during build, generating static sitemap');
+    console.log('   (This is normal for build-time generation. Blog posts are still accessible on your site.)');
   }
 
   // Build sitemap XML
@@ -89,9 +90,9 @@ async function generateSitemap() {
   </url>
 `;
 
-  // Add blog posts
+  // Add blog posts (dynamic from database)
   if (blogPosts && blogPosts.length > 0) {
-    sitemap += '\n  <!-- Blog Posts -->\n';
+    sitemap += '\n  <!-- Blog Posts (from database) -->\n';
     blogPosts.forEach((post) => {
       const lastmod = post.updated_at || post.published_at || currentDate;
       const formattedDate = new Date(lastmod).toISOString().split('T')[0];
@@ -99,6 +100,28 @@ async function generateSitemap() {
       sitemap += `  <url>
     <loc>${SITE_URL}/blog/${post.slug}</loc>
     <lastmod>${formattedDate}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+`;
+    });
+  } else {
+    // Fallback: Add known blog posts statically
+    sitemap += '\n  <!-- Blog Posts (static fallback) -->\n';
+    const staticBlogPosts = [
+      'top-10-cybersecurity-threats-2025',
+      'zero-trust-architecture-implementation-guide',
+      'ultimate-guide-penetration-testing',
+      'cloud-security-best-practices-2025',
+      'incident-response-plan-guide',
+      'gdpr-compliance-practical-guide',
+      'security-awareness-training-best-practices'
+    ];
+    
+    staticBlogPosts.forEach((slug) => {
+      sitemap += `  <url>
+    <loc>${SITE_URL}/blog/${slug}</loc>
+    <lastmod>${currentDate}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
