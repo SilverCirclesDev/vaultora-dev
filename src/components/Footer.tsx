@@ -1,4 +1,4 @@
-import { Shield, Mail, Phone, MapPin, Twitter, Linkedin, Facebook, Instagram } from "lucide-react";
+import { Mail, Phone, MapPin, Twitter, Linkedin, Facebook, Instagram } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export const Footer = () => {
@@ -19,7 +19,6 @@ export const Footer = () => {
               onClick={() => scrollToSection('hero')} 
               className="flex items-center gap-2 mb-4"
             >
-              <Shield className="h-8 w-8 text-primary" />
               <span className="text-xl font-bold text-gradient-primary">Vaultora</span>
             </button>
             <p className="text-sm text-muted-foreground mb-4">
