@@ -31,7 +31,7 @@ export const SOCIAL_MEDIA = {
 // Contact Information (public information)
 export const CONTACT_INFO = {
   email: 'contact@vaultora.com',
-  phone: '+1-234-567-8900',
+  phone: '+1-512-555-0147',
   address: {
     street: '1234 Cyber Security Drive',
     city: 'Austin',

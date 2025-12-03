@@ -90,8 +90,8 @@ const Contact = () => {
                     </div>
                     <div>
                       <p className="font-semibold mb-1">Phone</p>
-                      <a href="tel:+1234567890" className="text-muted-foreground hover:text-primary transition-colors">
-                        +1 (234) 567-8900
+                      <a href="tel:+15125550147" className="text-muted-foreground hover:text-primary transition-colors">
+                        +1 (512) 555-0147
                       </a>
                     </div>
                   </div>
@@ -171,7 +171,7 @@ const Contact = () => {
                         type="tel"
                         value={formData.phone}
                         onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                        placeholder="+1 (234) 567-8900"
+                        placeholder="+1 (512) 555-0147"
                       />
                     </div>
                   </div>
@@ -212,7 +212,7 @@ const Contact = () => {
             <p className="text-xl text-muted-foreground mb-8">
               For urgent security matters, call our 24/7 emergency hotline
             </p>
-            <a href="tel:+1234567890">
+            <a href="tel:+15125550147">
               <Button size="lg" variant="outline" className="border-primary/50 hover:border-primary">
                 <Phone className="mr-2 h-5 w-5" />
                 Call Emergency Line

@@ -54,7 +54,7 @@ INSERT INTO public.site_settings (setting_key, setting_value, setting_type, desc
 ('site_name', 'Vaultora Cyber Defense', 'string', 'Website name', 'general'),
 ('site_description', 'Professional cybersecurity services including penetration testing, network security, and vulnerability assessments.', 'string', 'Website description', 'general'),
 ('contact_email', 'contact@vaultora.com', 'string', 'Primary contact email', 'general'),
-('contact_phone', '+1-234-567-8900', 'string', 'Primary contact phone', 'general'),
+('contact_phone', '+1-512-555-0147', 'string', 'Primary contact phone', 'general'),
 ('address', '1234 Cyber Security Drive, Austin, TX 78701', 'string', 'Business address', 'general'),
 ('maintenance_mode', 'false', 'boolean', 'Enable maintenance mode', 'general'),
 ('analytics_enabled', 'true', 'boolean', 'Enable analytics tracking', 'general'),
