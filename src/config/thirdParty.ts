@@ -8,7 +8,7 @@
 export const LIVECHAT_CONFIG = {
   // LiveChat license ID - Get from https://www.livechat.com/
   // For production, set VITE_LIVECHAT_LICENSE in your environment variables
-  license: import.meta.env.VITE_LIVECHAT_LICENSE || '19356281',
+  license: import.meta.env.VITE_LIVECHAT_LICENSE || '19403302',
   integrationName: 'manual_onboarding',
   productName: 'livechat'
 };
