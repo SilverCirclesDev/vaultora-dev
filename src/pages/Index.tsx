@@ -211,17 +211,17 @@ const Index = () => {
           <div className="max-w-6xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
               <Shield className="h-4 w-4" />
-              Trusted by 400+ Companies
+              Trusted by 500+ Businesses
             </div>
             
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6">
-              <span className="text-gradient-primary">Securing Your</span>
+              <span className="text-gradient-primary">Securing Your Business</span>
               <br />
-              <span className="text-foreground">Digital Future</span>
+              <span className="text-foreground">From Cyber Threats</span>
             </h1>
             
             <p className="text-xl text-muted-foreground max-w-4xl mx-auto mb-8">
-              Professional cybersecurity services by certified security experts. Protect your business with comprehensive security solutions.
+              Work with certified cybersecurity specialists to get full-spectrum protection for your business.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
