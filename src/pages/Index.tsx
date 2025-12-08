@@ -221,7 +221,7 @@ const Index = () => {
             </h1>
             
             <p className="text-xl text-muted-foreground max-w-4xl mx-auto mb-8">
-              Work with certified cybersecurity specialists to get full-spectrum protection for your business.
+              Work with our certified cybersecurity specialists to get full-spectrum protection for your business, safeguard your digital assets, prevent cyber threats, and ensure uninterrupted operations.”
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
@@ -234,17 +234,17 @@ const Index = () => {
                   }
                 }}
               >
-                Get Started Free
+                Get Started now!
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button 
+             /* <Button 
                 size="lg" 
                 variant="outline" 
                 className="text-lg px-8 border-primary/50 hover:border-primary"
                 onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 View Services
-              </Button>
+              </Button>*/
             </div>
 
             {/* Hero Visual */}
