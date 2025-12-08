@@ -9,7 +9,7 @@ const Services = () => {
     {
       icon: Shield,
       title: "Penetration Testing & Ethical Hacking",
-      description: "Comprehensive security assessments that simulate real-world attacks to identify vulnerabilities before malicious actors do.",
+      description: "Comprehensive security audit that simulate real-world attacks to identify vulnerabilities before malicious actors do.",
       features: [
         "Network penetration testing",
         "Web application security testing",
