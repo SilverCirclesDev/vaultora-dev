@@ -244,7 +244,7 @@ const Index = () => {
                 onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 View Services
-              </Button>*/
+              </Button> */
             </div>
 
             {/* Hero Visual */}
