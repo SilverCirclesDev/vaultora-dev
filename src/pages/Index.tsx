@@ -234,8 +234,8 @@ const Index = () => {
                   }
                 }}
               >
-                Get Started now!
-                <ArrowRight className="ml-2 h-5 w-5" />
+                Speak with a CyberSecurity Veteran!
+              
               </Button>
              
             </div>
