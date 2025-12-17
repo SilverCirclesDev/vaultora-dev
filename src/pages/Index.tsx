@@ -215,13 +215,13 @@ const Index = () => {
             </div>
             
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6">
-              <span className="text-gradient-primary">Securing Your Business</span>
+              <span className="text-gradient-primary">Secure Your Business</span>
               <br />
               <span className="text-foreground">From Cyber Threats</span>
             </h1>
             
             <p className="text-xl text-muted-foreground max-w-4xl mx-auto mb-8">
-              Work with our certified cybersecurity specialists to get full-spectrum protection for your business, safeguard your digital assets, prevent cyber threats, and ensure uninterrupted operations.
+              Work with our certified cybersecurity specialists to get full-spectrum protection for your business, safeguard your digital assets, prevent cyber threats, and ensure uninterrupted  business operations.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
@@ -278,10 +278,9 @@ const Index = () => {
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-10">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                Comprehensive <span className="text-gradient-primary">Security Services</span>
+                Comprehensive <span className="text-gradient-primary">Security Audits</span>
               </h2>
-              <p className="text-xl text-muted-foreground">
-                From penetration testing to compliance consulting, we provide end-to-end cybersecurity solutions.
+              <p className="text-xl text-muted-foreground">We assess, test, and validate your systems through penetration testing and compliance consulting to proactively identify risks, strengthen security controls, and deliver complete end-to-end protection for your business.
               </p>
             </div>
           
@@ -347,8 +346,8 @@ const Index = () => {
                 Why Choose <span className="text-gradient-primary">Vaultora?</span>
               </h2>
               <p className="text-lg text-muted-foreground mb-8">
-                We are committed to protecting your digital assets through comprehensive security solutions. 
-                Our mission is to provide world-class cybersecurity services that safeguard businesses against evolving threats.
+                At Vaultora, we are dedicated to protecting your digital assets through comprehensive, full-spectrum security solutions. 
+                Our mission is to deliver world-class cybersecurity services that defend your business against today’s rapidly evolving cyber threats.
               </p>
               
               <div className="grid sm:grid-cols-2 gap-6 mb-8">
@@ -356,22 +355,22 @@ const Index = () => {
                   {
                     icon: Shield,
                     title: "Security First",
-                    desc: "Your protection is our top priority in everything we do"
+                    desc: "Your protection is our highest priority, guiding every strategy, assessment, and solution we deliver."
                   },
                   {
                     icon: Award,
                     title: "Excellence",
-                    desc: "Delivering the highest quality cybersecurity services"
+                    desc: "We uphold the highest standards, providing reliable, high-quality cybersecurity services you can trust."
                   },
                   {
                     icon: Users,
                     title: "Partnership",
-                    desc: "Building lasting relationships with our clients"
+                    desc: "We work as an extension of your team, building long-term partnerships focused on your success and security."
                   },
                   {
                     icon: Target,
                     title: "Precision",
-                    desc: "Targeted, effective solutions for your specific needs"
+                    desc: "We deliver targeted, effective security solutions tailored to your business’s unique risks and requirements"
                   }
                 ].map((value, i) => (
                   <div key={i} className="flex items-start gap-3">
@@ -417,7 +416,7 @@ const Index = () => {
                     V
                   </div>
                   <h3 className="text-xl font-bold mb-2">Vaultora Team</h3>
-                  <p className="text-primary text-sm">Certified Cybersecurity Professionals</p>
+                  <p className="text-primary text-sm">Certified Cybersecurity Veterans</p>
                 </div>
                 
                 <div className="space-y-4">
